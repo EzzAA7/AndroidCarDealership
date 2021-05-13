@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,22 +16,24 @@ public class SignInActivity extends AppCompatActivity {
 
     EditText editTextUserName;
     EditText editTextPassword;
-    Button btnSignIn;
-    Button btnMoveToSignUp;
+    Button btn_sign_in;
+    Button btn_move_to_SignUp;
+    CheckBox cb;
     SharedPrefManager sharedPrefManager;
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        setContentView(R.layout.activity_sign_in);
+        editTextPassword = (EditText) findViewById(R.id.editText_password);
         editTextUserName = (EditText) findViewById(R.id.editTextUserName);
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnMoveToSignUp = (Button) findViewById(R.id.btnMoveToSignUp);
+        btn_sign_in = (Button) findViewById(R.id.btnSignIn);
+        btn_move_to_SignUp = (Button) findViewById(R.id.btnGoToSignUp);
+        cb = (CheckBox) findViewById(R.id.checkBox);
         sharedPrefManager = SharedPrefManager.getInstance(this);
         intent = new Intent(SignInActivity.this,SignUpActivity.class);
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sharedPrefManager.writeString("userName",editTextUserName.getText().toString());
@@ -40,7 +43,7 @@ public class SignInActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-        btnMoveToSignUp.setOnClickListener(new View.OnClickListener() {
+        btn_move_to_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(intent);
