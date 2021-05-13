@@ -14,7 +14,7 @@ import com.example.project_1160730.R;
 
 public class SignInActivity extends AppCompatActivity {
 
-    EditText editTextUserName;
+    EditText editTextEmail;
     EditText editTextPassword;
     Button btn_sign_in;
     Button btn_move_to_SignUp;
@@ -27,7 +27,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         editTextPassword = (EditText) findViewById(R.id.editText_password);
-        editTextUserName = (EditText) findViewById(R.id.editTextUserName);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         btn_sign_in = (Button) findViewById(R.id.btnSignIn);
         btn_move_to_SignUp = (Button) findViewById(R.id.btnGoToSignUp);
         cb = (CheckBox) findViewById(R.id.checkBox);
@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPrefManager.writeString("userName",editTextUserName.getText().toString());
+                sharedPrefManager.writeString("userName",editTextEmail.getText().toString());
 
                 sharedPrefManager.writeString("password",editTextPassword.getText().toString());
                 Toast.makeText(SignInActivity.this, "Values written to shared Preferences",
