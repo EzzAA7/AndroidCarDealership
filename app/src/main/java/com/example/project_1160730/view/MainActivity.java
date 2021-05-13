@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +22,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Button button;
     LinearLayout linearLayout;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setProgress(false);
+        intent = new Intent(MainActivity.this, SignInActivity.class);
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(cars.get(i).toString());
                 linearLayout.addView(textView);
             }
+            startActivity(intent);
+            finish();
         }
 
     }
