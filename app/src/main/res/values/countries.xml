@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="countries_array">
+        <item>Palestine</item>
+        <item>Jordan</item>
+        <item>Syria</item>
+        <item>Lebanon</item>
+    </string-array>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="jordan_cities_array">
+        <item>Amman</item>
+        <item>Karak</item>
+        <item>Salt</item>
+    </string-array>
+</resources>

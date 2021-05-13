@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="leb_cities_array">
+        <item>Beirut</item>
+        <item>Tripoli</item>
+        <item>Jounieh</item>
+    </string-array>
+</resources>

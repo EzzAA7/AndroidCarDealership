@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="syrian_cities_array">
+        <item>Damascus</item>
+        <item>Aleppo</item>
+        <item>Homs</item>
+    </string-array>
+</resources>
