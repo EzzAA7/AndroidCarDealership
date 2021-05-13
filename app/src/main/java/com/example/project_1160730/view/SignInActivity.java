@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPrefManager.writeString("userName",editTextEmail.getText().toString());
+                sharedPrefManager.writeString("Email",editTextEmail.getText().toString());
 
                 sharedPrefManager.writeString("password",editTextPassword.getText().toString());
                 Toast.makeText(SignInActivity.this, "Values written to shared Preferences",
