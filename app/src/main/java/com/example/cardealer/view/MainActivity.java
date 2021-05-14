@@ -3,6 +3,7 @@ package com.example.cardealer.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cardealer.R;
+import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.model.Car;
 import com.example.cardealer.service.ConnectionAsyncTask;
 
@@ -54,14 +56,42 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             for (int i = 0; i < cars.size(); i++) {
-                TextView textView = new TextView(this);
-                textView.setText(cars.get(i).toString());
-                linearLayout.addView(textView);
+
+                DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ",null,1);
+                dataBaseHelper.insertCar(cars.get(i));
+
+//                TextView textView = new TextView(this);
+//                textView.setText(cars.get(i).toString());
+//                linearLayout.addView(textView);
             }
             startActivity(intent);
             finish();
         }
 
+    }
+
+    protected void onResume() {
+        super.onResume();
+        DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ", null,1);
+        LinearLayout linearLayout = (LinearLayout)
+                findViewById(R.id.layout);
+        linearLayout.removeAllViews();
+        Cursor allCarsCursor = dataBaseHelper.getAllCars();
+        linearLayout .removeAllViews();
+        while (allCarsCursor.moveToNext()){
+            TextView textView =new TextView(MainActivity.this);
+
+            textView.setText(
+                    "Year= "+allCarsCursor.getString(0)
+                            +"\nMake= "+allCarsCursor.getString(1)
+                            +"\nDistance= "+allCarsCursor.getString(2)
+                            +"\nPrice= "+allCarsCursor.getString(3)
+                            +"\nAccidents= "+allCarsCursor.getString(4)
+                            +"\nOffers= "+allCarsCursor.getString(5)
+                            +"\n\n"
+            );
+            linearLayout.addView(textView);
+        }
     }
 
     public void setProgress(boolean progress) {

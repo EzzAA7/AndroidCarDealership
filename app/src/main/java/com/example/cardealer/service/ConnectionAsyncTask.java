@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.cardealer.controller.CarJasonParser;
+import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.model.Car;
 import com.example.cardealer.view.MainActivity;
 
