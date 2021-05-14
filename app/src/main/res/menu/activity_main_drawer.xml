@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_car_menu"
+            android:title="Car Menu"
+            android:icon="@drawable/ic_car_menu"/>
+
+        <item
+            android:id="@+id/nav_your_reservations"
+            android:title="Your Reservations"
+            android:icon="@drawable/ic_your_reservations"/>
+        <item
+            android:id="@+id/nav_your_favourites"
+            android:title="Your Favourites"
+            android:icon="@drawable/ic_your_favourites"/>
+        <item
+            android:id="@+id/nav_special_offers"
+            android:title="Special Offers"
+            android:icon="@drawable/ic_special_offers"/>
+
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            android:icon="@drawable/ic_profile"/>
+
+        <item
+            android:id="@+id/nav_contact"
+            android:title="Contact"
+            android:icon="@drawable/ic_contact"/>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:icon="@drawable/ic_logout"/>
+
+    </group>
+</menu>

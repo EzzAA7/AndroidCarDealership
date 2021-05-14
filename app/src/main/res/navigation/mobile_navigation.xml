@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.cardealer.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_car_menu"
+        android:name="com.example.cardealer.ui.carMenu.CarMenuFragment"
+        android:label="Car Menu"
+        tools:layout="@layout/car_menu_fragment" />
+
+    <fragment
+        android:id="@+id/nav_your_reservations"
+        android:name="com.example.cardealer.ui.yourReservations.YourReservationsFragment"
+        android:label="Your Reservations"
+        tools:layout="@layout/your_reservations_fragment" />
+    <fragment
+        android:id="@+id/nav_your_favourites"
+        android:name="com.example.cardealer.ui.yourFavourites.YourFavouritesFragment"
+        android:label="Your Favourites"
+        tools:layout="@layout/your_favourites_fragment" />
+    <fragment
+        android:id="@+id/nav_special_offers"
+        android:name="com.example.cardealer.ui.specialOffers.SpecialOffersFragment"
+        android:label="Special Offers"
+        tools:layout="@layout/special_offers_fragment" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.cardealer.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.cardealer.ui.contact.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/contact_fragment" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.cardealer.ui.logout.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/logout_fragment" />
+</navigation>
