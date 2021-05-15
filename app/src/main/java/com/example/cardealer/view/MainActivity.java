@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ",null,1);
 //            dataBaseHelper.onUpgrade();
             for (int i = 0; i < cars.size(); i++) {
-                System.out.println(cars.get(i));
+//                System.out.println(cars.get(i));
                 dataBaseHelper.insertCar(cars.get(i));
 //                Cursor allCarsCursor = dataBaseHelper.getAllCars();
 //                System.out.println(allCarsCursor.getCount());
