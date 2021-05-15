@@ -21,6 +21,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         contentValues.put("YEAR", car.getYear());
         contentValues.put("MAKE",
                 car.getMake());
+        contentValues.put("MODEL", car.getModel());
         contentValues.put("DISTANCE", car.getDistance());
         contentValues.put("PRICE", car.getPrice());
         contentValues.put("ACCIDENTS", car.getAccidents());
@@ -30,7 +31,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE CAR(YEAR TEXT, MAKE TEXT,DISTANCE TEXT, PRICE TEXT, ACCIDENTS BOOLEAN, OFFERS BOOLEAN ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE CAR(YEAR TEXT, MAKE TEXT,MODEL TEXT, DISTANCE TEXT, PRICE TEXT, ACCIDENTS BOOLEAN, OFFERS BOOLEAN ) ");
     }
 
     @Override

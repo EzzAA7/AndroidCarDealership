@@ -42,10 +42,11 @@ public class CarMenuFragment extends Fragment {
             textView.setText(
                     "Year= "+allCarsCursor.getString(0)
                             +"\nMake= "+allCarsCursor.getString(1)
-                            +"\nDistance= "+allCarsCursor.getString(2)
-                            +"\nPrice= "+allCarsCursor.getString(3)
-                            +"\nAccidents= "+allCarsCursor.getString(4)
-                            +"\nOffers= "+allCarsCursor.getString(5)
+                            +"\nModel= "+allCarsCursor.getString(2)
+                            +"\nDistance= "+allCarsCursor.getString(3)
+                            +"\nPrice= "+allCarsCursor.getString(4)
+                            +"\nAccidents= "+allCarsCursor.getString(5)
+                            +"\nOffers= "+allCarsCursor.getString(6)
                             +"\n\n"
             );
             linearLayout.addView(textView);
