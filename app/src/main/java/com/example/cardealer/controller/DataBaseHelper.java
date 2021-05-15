@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.cardealer.model.Car;
 
-public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
+import java.util.ArrayList;
+
+public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int
             version) {
         super(context, name, factory, version);
@@ -46,6 +48,39 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper{
         return sqLiteDatabase.rawQuery("SELECT * FROM CAR", null);
     }
 
+    public ArrayList<Car> getAllCarsList() {
+        ArrayList<Car> cars = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CAR", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                String year = cursor.getString(0);
+                String make = cursor.getString(1);
+                String model = cursor.getString(2);
+                String distance = cursor.getString(3);
+                String price = cursor.getString(4);
+                Boolean accidents = (cursor.getInt(5) == 1);
+                Boolean offers = (cursor.getInt(6) == 1);
+//                String x = cursor.getString(5);
+//                Boolean accidents;
+//                if(x.equals("true")) {
+//                    accidents = true;
+//                }else accidents = false;
+//                String y = cursor.getString(6);
+//                Boolean offers;
+//                if(y.equals("true")) {
+//                    offers = true;
+//                }else offers = false;
+
+                Car car = new Car(year,make, model, distance, price, accidents, offers);
+                System.out.println(car.toString());
+                cars.add(car);
+            } while (cursor.moveToNext());
+        }
+        return cars;
+    }
 
 
 }
