@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="200dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="30dp">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,38 +26,64 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:src="@drawable/special_offer"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/special_offer" />
 
-            <TextView
-                android:id="@+id/percentage"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5% OFF"
-                android:textAlignment="center"
-                android:layout_marginTop="5dp"
-                android:textColor="#1E1E1E"
-                android:textSize="20dp"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="HONDA Models Up to 2012"
-                android:textAlignment="center"
-                android:layout_margin="5dp"
-                android:textColor="#474343"
-                android:textSize="15dp"/>
+                <TextView
+                    android:id="@+id/info"
+                    android:layout_width="232dp"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textAlignment="center"
+                    android:textColor="#474343"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="86dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="#1E1E1E"
+                    android:textSize="20dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/expiration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Offer is valid until 27/6/2021"
+                android:text=" "
                 android:textAlignment="center"
-                android:layout_margin="1dp"
                 android:textColor="#FF5733"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnReserve"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+                    android:layout_width="226dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Reserve"
+                    app:icon="@drawable/ic_reserve" />
+
+                <Button
+                    android:id="@+id/btnFav"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_your_favourites" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

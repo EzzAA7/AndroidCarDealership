@@ -7,46 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".ui.specialOffers.SpecialOffersFragment">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="216dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Special Offers"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/include1"
-        layout="@layout/special_offer"
-        android:layout_width="412dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/special_offer"
-        android:layout_width="412dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include1" />
+            <include
+                android:id="@+id/include1"
+                layout="@layout/special_offer"
+                android:layout_width="385dp"
+                android:layout_height="213dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/special_offer"
-        android:layout_width="412dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+            <include
+                android:id="@+id/include2"
+                layout="@layout/special_offer"
+                android:layout_width="388dp"
+                android:layout_height="210dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include1" />
+
+            <include
+                android:id="@+id/include3"
+                layout="@layout/special_offer"
+                android:layout_width="381dp"
+                android:layout_height="237dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
