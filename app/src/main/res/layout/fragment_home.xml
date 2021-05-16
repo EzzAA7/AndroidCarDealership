@@ -24,9 +24,9 @@
         android:layout_width="399dp"
         android:layout_height="59dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:text="Ezz's Dealership"
+        android:text="FAMILY AUTO Dealership"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,9 +40,9 @@
         android:layout_width="355dp"
         android:layout_height="182dp"
         android:layout_marginStart="28dp"
-        android:src="@drawable/special_offer"
+        android:src="@drawable/car_dealer"
         app:layout_constraintBottom_toTopOf="@+id/tvShopName"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -75,6 +75,8 @@
         android:layout_width="373dp"
         android:layout_height="265dp"
         android:layout_marginStart="16dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
         android:text="Our lovely establishment was started in 1967, it was the life work of my my grandfather and my father. The dealership sells all different kinds of cars from sedans to SUVs to hatchbacks."
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
