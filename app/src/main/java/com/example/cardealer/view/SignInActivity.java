@@ -41,11 +41,17 @@ public class SignInActivity extends AppCompatActivity {
         sharedPrefManager = SharedPrefManager.getInstance(this);
         linearLayout = (LinearLayout) findViewById(R.id.layout);
 
+        // ------------------------- Setup Email & Password Values -----------------------------
+        editTextEmail.setText(sharedPrefManager.readString("Email","noValue"));
+        editTextPassword.setText(sharedPrefManager.readString("Password","noValue"));
+
+        // ---- Setup intents
         intentToSignUp = new Intent(SignInActivity.this,SignUpActivity.class);
         intentSignIn = new Intent(SignInActivity.this, NavActivity.class);
         // initialize db
         DataBaseHelper dataBaseHelper =new DataBaseHelper(SignInActivity.this,"PROJ", null,1);
 
+        // configure sign in  button
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
                         if (cb.isChecked()) {
                             // if checked we need to save in sharedPref then move to next screen
                             sharedPrefManager.writeString("Email",editTextEmail.getText().toString());
-                            sharedPrefManager.writeString("password",editTextPassword.getText().toString());
+                            sharedPrefManager.writeString("Password",editTextPassword.getText().toString());
                             Toast.makeText(SignInActivity.this, "Values written to shared Preferences",
                                     Toast.LENGTH_SHORT).show();
                             cb.setChecked(false);
@@ -99,6 +105,7 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
+        // configure sign up button
         btn_move_to_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +114,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
-
+    // empty field dialog alert setup
     public void showAlertDialogEmpty(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Unsuccessful Action");
