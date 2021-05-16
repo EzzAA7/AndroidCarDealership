@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         alert.create().show();
-
     }
 
 }

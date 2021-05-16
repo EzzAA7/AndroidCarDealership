@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cardealer.R;
+import com.example.cardealer.controller.DataBaseHelper;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -33,17 +34,43 @@ public class SignInActivity extends AppCompatActivity {
         btn_move_to_SignUp = (Button) findViewById(R.id.btnGoToSignUp);
         cb = (CheckBox) findViewById(R.id.checkBox);
         sharedPrefManager = SharedPrefManager.getInstance(this);
+
         intentToSignUp = new Intent(SignInActivity.this,SignUpActivity.class);
         intentSignIn = new Intent(SignInActivity.this, NavActivity.class);
+        DataBaseHelper dataBaseHelper =new DataBaseHelper(SignInActivity.this,"PROJ", null,1);
+
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPrefManager.writeString("Email",editTextEmail.getText().toString());
-                sharedPrefManager.writeString("password",editTextPassword.getText().toString());
-                Toast.makeText(SignInActivity.this, "Values written to shared Preferences",
-                        Toast.LENGTH_SHORT).show();
-                startActivity(intentSignIn);
-                finish();
+                boolean var = dataBaseHelper.checkUser(editTextEmail.getText().toString(),
+                        editTextPassword.getText().toString());
+
+                if (var){
+
+                    if (cb.isChecked()) {
+                        sharedPrefManager.writeString("Email",editTextEmail.getText().toString());
+                        sharedPrefManager.writeString("password",editTextPassword.getText().toString());
+                        Toast.makeText(SignInActivity.this, "Values written to shared Preferences",
+                                Toast.LENGTH_SHORT).show();
+                        cb.setChecked(false);
+                        Toast.makeText(SignInActivity.this, "Signed In Successfully",
+                                Toast.LENGTH_SHORT).show();
+                        startActivity(intentSignIn);
+                        finish();
+                    }
+                    else{
+                        Toast.makeText(SignInActivity.this, "Signed In Successfully",
+                                Toast.LENGTH_SHORT).show();
+                        startActivity(intentSignIn);
+                        finish();
+                    }
+
+                }
+                else {
+                    Toast.makeText(SignInActivity.this, "Sign In failed, no such user",
+                            Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         btn_move_to_SignUp.setOnClickListener(new View.OnClickListener() {
