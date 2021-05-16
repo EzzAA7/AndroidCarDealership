@@ -20,6 +20,7 @@ import com.example.cardealer.controller.DataBaseHelper;
 public class SignUpActivity extends AppCompatActivity {
 
     EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etPhoneNumber;
+    Button addCustomerButton,switchToLogIn;
     Intent intentToSignIn;
     LinearLayout linearLayout;
 
@@ -28,14 +29,16 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        // activity data
         linearLayout = (LinearLayout) findViewById(R.id.layout);
-
         etFirstName = (EditText)findViewById(R.id.editTextFirstName);
         etLastName = (EditText)findViewById(R.id.editTextLastName);
         etEmail = (EditText)findViewById(R.id.editText_email);
         etPassword = (EditText)findViewById(R.id.editTextPassword);
         etConfirmPassword = (EditText)findViewById(R.id.editTextConfirmPassword);
         etPhoneNumber = (EditText)findViewById(R.id.editTextPhoneNumber);
+        addCustomerButton = (Button) findViewById(R.id.btnSignUp);
+        switchToLogIn = (Button) findViewById(R.id.btnSwitchToLogin);
 
         // ------------ Configuring the spinner adapters ----------------------------
 
@@ -72,33 +75,48 @@ public class SignUpActivity extends AppCompatActivity {
         intentToSignIn = new Intent(SignUpActivity.this,SignInActivity.class);
         DataBaseHelper dataBaseHelper =new DataBaseHelper(SignUpActivity.this,"PROJ", null,1);
 
-        Button addCustomerButton = (Button) findViewById(R.id.btnSignUp);
-        Button switchToLogIn = (Button) findViewById(R.id.btnSwitchToLogin);
         addCustomerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
-                    boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
-                            etLastName.getText().toString(), etEmail.getText().toString(),
-                            etPassword.getText().toString(), gender.getSelectedItem().toString(),
-                            countries.getSelectedItem().toString(),
-                            cities.getSelectedItem().toString(),
-                            etPhoneNumber.getText().toString());
+                // first check if any fields are empty
+                if(etFirstName.getText().toString().isEmpty() ||
+                    etLastName.getText().toString().isEmpty()||
+                        etEmail.getText().toString().isEmpty() ||
+                        etPassword.getText().toString().isEmpty()){
 
-                    if(var){
-                        Toast.makeText(SignUpActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(SignUpActivity.this, "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
-
-                    }
+                    showAlertDialogEmpty(linearLayout);
                 }
+                // if not empty then check for validation
                 else{
-                    showAlertDialogNotEqual(linearLayout);
+                    // if passwords match then we can send register action to db
+                    if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+                        boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
+                                etLastName.getText().toString(), etEmail.getText().toString(),
+                                etPassword.getText().toString(), gender.getSelectedItem().toString(),
+                                countries.getSelectedItem().toString(),
+                                cities.getSelectedItem().toString(),
+                                etPhoneNumber.getText().toString());
+
+                        // check if db registeration action succeeded
+                        if(var){
+                            Toast.makeText(SignUpActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(SignUpActivity.this, "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    // if passwords dont match then alert the user
+                    else{
+                        showAlertDialogNotEqual(linearLayout);
+                    }
+
                 }
             }
         });
 
+        // simply just move to sign in activity
         switchToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,14 +125,27 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-//        newCustomer.setmGender(genderSpinner.getSelectedItem().toString());
     }
 
+    // the alert func for not equal passwords
     public void showAlertDialogNotEqual(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Unsuccessful Action");
         alert.setMessage("Passwords don't match");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                Toast.makeText(SignUpActivity.this, "Try Again! :)", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+    }
+
+    // the alert func for empty field
+    public void showAlertDialogEmpty(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Unsuccessful Action");
+        alert.setMessage("Some fields are empty");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
