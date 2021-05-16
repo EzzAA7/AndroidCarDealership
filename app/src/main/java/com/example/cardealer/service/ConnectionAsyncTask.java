@@ -46,11 +46,13 @@ public class ConnectionAsyncTask extends AsyncTask<String, String, String> {
 //        }
         if(s == null){
             List<Car> cars = new ArrayList<>();
-            ((MainActivity) activity).fillCars(cars);
+            Car.carsArrayList = new ArrayList<Car>();
+            ((MainActivity) activity).fillCars(Car.carsArrayList);
         }
         else{
-            List<Car> cars = CarJasonParser.getObjectFromJason(s);
-            ((MainActivity) activity).fillCars(cars);
+            List<Car> carsList = CarJasonParser.getObjectFromJason(s);
+            Car.carsArrayList = new ArrayList<Car>(carsList);
+            ((MainActivity) activity).fillCars(Car.carsArrayList);
             Toast.makeText(((MainActivity) activity), "Connected! :)", Toast.LENGTH_SHORT).show();
         }
 

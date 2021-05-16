@@ -1,6 +1,9 @@
 package com.example.cardealer.model;
 
+import java.util.ArrayList;
+
 public class Car {
+    public static ArrayList<Car> carsArrayList=new ArrayList<Car>();
     private String year;
     private String make;
     private String model;

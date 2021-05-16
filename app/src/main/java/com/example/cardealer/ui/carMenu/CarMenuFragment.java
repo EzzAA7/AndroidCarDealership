@@ -46,7 +46,7 @@ public class CarMenuFragment extends Fragment {
 //        linearLayout.removeAllViews();
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        cars = dataBaseHelper.getAllCarsList();
+        cars = Car.carsArrayList;
 
         carAdapter = new CarAdapter(cars, getActivity());
         recyclerView.setAdapter(carAdapter);

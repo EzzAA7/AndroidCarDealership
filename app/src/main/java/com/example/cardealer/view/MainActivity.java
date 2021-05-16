@@ -19,6 +19,7 @@ import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.model.Car;
 import com.example.cardealer.service.ConnectionAsyncTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         button.setText(text);
     }
 
-    public void fillCars(List<Car> cars) {
+    public void fillCars(ArrayList<Car> cars) {
 //        LinearLayout linearLayout = (LinearLayout)
 //                findViewById(R.id.layout);
 //        linearLayout.removeAllViews();
@@ -55,18 +56,17 @@ public class MainActivity extends AppCompatActivity {
             showAlertDialog(linearLayout);
         }
         else{
-            deleteDatabase("PROJ");
-            DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ",null,1);
-//            dataBaseHelper.onUpgrade();
-            for (int i = 0; i < cars.size(); i++) {
-//                System.out.println(cars.get(i));
-                dataBaseHelper.insertCar(cars.get(i));
-//                Cursor allCarsCursor = dataBaseHelper.getAllCars();
-//                System.out.println(allCarsCursor.getCount());
+//            deleteDatabase("PROJ");
+//            DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ",null,1);
+//            for (int i = 0; i < cars.size(); i++) {
+////                System.out.println(cars.get(i));
+////                dataBaseHelper.insertCar(cars.get(i));
+////                Cursor allCarsCursor = dataBaseHelper.getAllCars();
+////                System.out.println(allCarsCursor.getCount());
 //                TextView textView = new TextView(this);
 //                textView.setText(cars.get(i).toString());
 //                linearLayout.addView(textView);
-            }
+//            }
             startActivity(intent);
             finish();
         }
