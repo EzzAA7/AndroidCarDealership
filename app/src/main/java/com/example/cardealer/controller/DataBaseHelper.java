@@ -14,7 +14,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    public boolean registerUser(String firstName, String lastName, String email, String password, String gender, String country, String city, String phoneNumber) {
+    public boolean registerUser(String firstName, String lastName, String email, String password, String gender, String country, String city, String phoneNumber, String role) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("FNAME", firstName);
@@ -26,6 +26,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("COUNTRY", country);
         contentValues.put("CITY", city);
         contentValues.put("PHONENUMBER", phoneNumber);
+        contentValues.put("ROLE", role);
         long result = sqLiteDatabase.insert("USER", null, contentValues);
 
         if(result == -1){
@@ -62,12 +63,38 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return false;
     }
 
+    public boolean isUserAdmin(String email) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        String []  columns = {"ROLE"};
+        String selections = "EMAIL" + "=?";
+        String [] selectionArgs = { email };
+
+        Cursor cursor = sqLiteDatabase.query("USER", columns, selections, selectionArgs, null, null, null);
+
+        int count = cursor.getCount();
+        sqLiteDatabase.close();
+
+        if(cursor.moveToFirst() && count >= 1) {
+            do {
+                Boolean role = (cursor.getString(0).equals("admin"));
+
+                if (role){
+                    return true;
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return false;
+    }
+
 
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE CAR(YEAR TEXT, MAKE TEXT,MODEL TEXT, DISTANCE TEXT, PRICE TEXT, ACCIDENTS BOOLEAN, OFFERS BOOLEAN ) ");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
     }
 
     @Override
