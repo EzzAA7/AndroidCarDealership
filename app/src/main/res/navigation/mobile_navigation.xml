@@ -43,13 +43,14 @@
         android:label="Contact"
         tools:layout="@layout/contact_fragment" />
     <fragment
-        android:id="@+id/nav_logout"
-        android:name="com.example.cardealer.ui.logout.LogoutFragment"
-        android:label="Logout"
-        tools:layout="@layout/logout_fragment" />
-    <fragment
         android:id="@+id/nav_add_admin"
         android:name="com.example.cardealer.ui.addAdmin.AddAdminFragment"
         android:label="Add Admin"
         tools:layout="@layout/add_admin_fragment" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.cardealer.ui.logout.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/logout_fragment" />
+
 </navigation>

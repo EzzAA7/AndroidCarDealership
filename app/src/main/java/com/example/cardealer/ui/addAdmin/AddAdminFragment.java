@@ -116,7 +116,8 @@ public class AddAdminFragment extends Fragment {
                                 pw_hash, gender.getSelectedItem().toString(),
                                 countries.getSelectedItem().toString(),
                                 cities.getSelectedItem().toString(),
-                                etPhoneNumber.getText().toString());
+                                etPhoneNumber.getText().toString(),
+                                "admin");
 
                         // check if db registeration action succeeded
                         if(var){
