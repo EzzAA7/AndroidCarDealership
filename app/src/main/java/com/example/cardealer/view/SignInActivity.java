@@ -82,11 +82,18 @@ public class SignInActivity extends AppCompatActivity {
                             cb.setChecked(false);
                             Toast.makeText(SignInActivity.this, "Signed In Successfully",
                                     Toast.LENGTH_SHORT).show();
+
+                            // save a user session
+                            sharedPrefManager.writeString("Session",editTextEmail.getText().toString());
+
                             startActivity(intentSignIn);
                             finish();
                         }
                         // if not then simply just move to next screen
                         else{
+                            // save a user session
+                            sharedPrefManager.writeString("Session",editTextEmail.getText().toString());
+
                             Toast.makeText(SignInActivity.this, "Signed In Successfully",
                                     Toast.LENGTH_SHORT).show();
                             startActivity(intentSignIn);
