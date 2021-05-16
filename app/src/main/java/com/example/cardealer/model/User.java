@@ -1,55 +1,104 @@
 package com.example.cardealer.model;
 
 public class User {
-    private int ID;
-    private String name;
-    private Double age;
+    private String fName;
+    private String lName;
+    private String email;
+    private String password;
+    private String gender;
+    private String country;
+    private String city;
+    private String phoneNumber;
 
     public User() {
     }
 
-    public User(int ID, String name, Double age) {
-        this.ID = ID;
-        this.name = name;
-        this.age = age;
+    public User(String fName, String lName, String email, String password, String gender, String country, String city, String phoneNumber) {
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.password = password;
+        this.gender = gender;
+        this.country = country;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
     }
 
-    public int getID() {
-
-        return ID;
+    public String getfName() {
+        return fName;
     }
 
-    public void setID(int ID) {
-
-        this.ID = ID;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public String getName() {
-
-        return name;
+    public String getlName() {
+        return lName;
     }
 
-    public void setName(String name) {
-
-        this.name = name;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
-    public Double getAge() {
-
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(Double age) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-        this.age = age;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return "Student{" +
-                "\nID= " + ID +
-                "\nname= " + name +
-                "\nage= " + age +
-                +'\n' + '}' + '\n';
+        return "User{" +
+                "fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
