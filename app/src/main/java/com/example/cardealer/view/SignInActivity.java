@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.service.SharedPrefManager;
 
 public class SignInActivity extends AppCompatActivity {
 

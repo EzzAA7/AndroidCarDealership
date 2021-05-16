@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,11 +33,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setProgress(false);
+
+        // Configure activity data
         intent = new Intent(MainActivity.this, SignInActivity.class);
         button = (Button) findViewById(R.id.button);
+
+        // --- Configure button action
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // simply connect to REST API
                 ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(MainActivity.this);
                 connectionAsyncTask.execute("http://www.mocky.io/v2/5bfea5963100006300bb4d9a");
             }

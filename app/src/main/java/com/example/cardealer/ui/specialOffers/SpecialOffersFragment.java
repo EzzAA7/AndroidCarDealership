@@ -31,6 +31,7 @@ public class SpecialOffersFragment extends Fragment {
     ArrayList<Car> cars;
 
     public static SpecialOffersFragment newInstance() {
+
         return new SpecialOffersFragment();
     }
 

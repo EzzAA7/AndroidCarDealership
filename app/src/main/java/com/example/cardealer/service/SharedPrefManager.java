@@ -1,19 +1,18 @@
-package com.example.cardealer.view;
+package com.example.cardealer.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefManager {
-    private static final String SHARED_PREF_NAME = "My Shared Preference"; private static final int
-            SHARED_PREF_PRIVATE = Context.MODE_PRIVATE;
+    private static final String SHARED_PREF_NAME = "My Shared Preference";
+    private static final int SHARED_PREF_PRIVATE = Context.MODE_PRIVATE;
 
     private static SharedPrefManager ourInstance = null;
     private static SharedPreferences sharedPreferences = null;
     private SharedPreferences.Editor editor = null;
-    static SharedPrefManager getInstance(Context context) {
+    public static SharedPrefManager getInstance(Context context) {
         if (ourInstance != null) {
             return ourInstance;
-
         }
         ourInstance=new SharedPrefManager(context);
         return ourInstance;
