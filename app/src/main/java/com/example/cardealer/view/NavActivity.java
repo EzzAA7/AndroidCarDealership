@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.cardealer.R;
+import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.service.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,8 +36,8 @@ public class NavActivity extends AppCompatActivity {
         sharedPrefManager = SharedPrefManager.getInstance(this);
         View headerView = navigationView.getHeaderView(0);
         TextView navEmail = (TextView) headerView.findViewById(R.id.tvProfileEmail);
-        String em = sharedPrefManager.readString("Session","noValue");
-        navEmail.setText(em);
+        String email = sharedPrefManager.readString("Session","noValue");
+        navEmail.setText(email);
 
         // TODO: ADD GET NAME FROM DB
         //        TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
@@ -49,6 +50,23 @@ public class NavActivity extends AppCompatActivity {
                 R.id.nav_special_offers, R.id.nav_profile, R.id.nav_contact, R.id.nav_logout, R.id.nav_add_admin)
                 .setDrawerLayout(drawer)
                 .build();
+
+        DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
+        if(dataBaseHelper.isUserAdmin(email)){
+            // TODO: fix to admin home after creating it
+//            navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_car_menu).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_your_reservations).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_your_favourites).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_special_offers).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_contact).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
+        }
+        else{
+//            navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_add_admin).setVisible(false);
+
+        }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
