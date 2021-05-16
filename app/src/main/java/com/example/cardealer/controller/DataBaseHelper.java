@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 
 public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int
@@ -33,18 +35,30 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     }
 
     public boolean checkUser(String email, String password) {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        String []  columns = {"ID"};
-        String selections = "EMAIL" + "=?" + " and " + "PASSWORD" + "=?";
-        String [] selectionargs = { email, password};
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.query("USER", columns, selections, selectionargs, null, null, null);
+        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        String []  columns = {"PASSWORD"};
+        String selections = "EMAIL" + "=?";
+        String [] selectionArgs = { email};
+
+        Cursor cursor = sqLiteDatabase.query("USER", columns, selections, selectionArgs, null, null, null);
+
         int count = cursor.getCount();
         sqLiteDatabase.close();
-        cursor.close();
-        if(count > 0){
-            return true;
+
+        if(cursor.moveToFirst() && count >= 1) {
+            do {
+                String hashed = cursor.getString(0);
+
+                if (BCrypt.checkpw(password, hashed)){
+                    return true;
+                }
+            } while (cursor.moveToNext());
         }
+        cursor.close();
+
         return false;
     }
 

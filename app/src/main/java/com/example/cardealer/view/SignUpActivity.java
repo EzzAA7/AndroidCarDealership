@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class SignUpActivity extends AppCompatActivity {
 
     EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etPhoneNumber;
@@ -88,11 +90,16 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 // if not empty then check for validation
                 else{
+
                     // if passwords match then we can send register action to db
                     if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+
+                        String password = etPassword.getText().toString();
+                        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+
                         boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
                                 etLastName.getText().toString(), etEmail.getText().toString(),
-                                etPassword.getText().toString(), gender.getSelectedItem().toString(),
+                                pw_hash, gender.getSelectedItem().toString(),
                                 countries.getSelectedItem().toString(),
                                 cities.getSelectedItem().toString(),
                                 etPhoneNumber.getText().toString());
