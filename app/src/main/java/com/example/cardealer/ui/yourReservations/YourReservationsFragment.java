@@ -60,7 +60,7 @@ public class YourReservationsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(YourReservationsViewModel.class);
-        // TODO: Use the ViewModel
+        //
     }
 
 }

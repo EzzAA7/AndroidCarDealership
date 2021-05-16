@@ -78,7 +78,7 @@ public class CarMenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(CarMenuViewModel.class);
-        // TODO: Use the ViewModel
+        //
     }
 
 }

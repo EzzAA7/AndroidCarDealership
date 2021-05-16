@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        // TODO: Use the ViewModel
+        //
     }
 
 }

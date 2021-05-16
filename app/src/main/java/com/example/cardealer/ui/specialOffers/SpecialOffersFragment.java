@@ -66,7 +66,7 @@ public class SpecialOffersFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SpecialOffersViewModel.class);
-        // TODO: Use the ViewModel
+        //
     }
 
 }
