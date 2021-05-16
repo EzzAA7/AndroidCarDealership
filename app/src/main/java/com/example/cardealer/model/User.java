@@ -9,11 +9,13 @@ public class User {
     private String country;
     private String city;
     private String phoneNumber;
+    private String role;
 
     public User() {
     }
 
-    public User(String fName, String lName, String email, String password, String gender, String country, String city, String phoneNumber) {
+    public User(String fName, String lName, String email, String password, String gender,
+                String country, String city, String phoneNumber, String role) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
@@ -22,70 +24,94 @@ public class User {
         this.country = country;
         this.city = city;
         this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 
     public String getfName() {
+
         return fName;
     }
 
     public void setfName(String fName) {
+
         this.fName = fName;
     }
 
     public String getlName() {
+
         return lName;
     }
 
     public void setlName(String lName) {
+
         this.lName = lName;
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
     public String getPassword() {
+
         return password;
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
     public String getGender() {
+
         return gender;
     }
 
     public void setGender(String gender) {
+
         this.gender = gender;
     }
 
     public String getCountry() {
+
         return country;
     }
 
     public void setCountry(String country) {
+
         this.country = country;
     }
 
     public String getCity() {
+
         return city;
     }
 
     public void setCity(String city) {
+
         this.city = city;
     }
 
     public String getPhoneNumber() {
+
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -99,6 +125,7 @@ public class User {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

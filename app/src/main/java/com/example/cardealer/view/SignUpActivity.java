@@ -102,7 +102,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 pw_hash, gender.getSelectedItem().toString(),
                                 countries.getSelectedItem().toString(),
                                 cities.getSelectedItem().toString(),
-                                etPhoneNumber.getText().toString());
+                                etPhoneNumber.getText().toString(),
+                                "customer"
+                                );
 
                         // check if db registeration action succeeded
                         if(var){
