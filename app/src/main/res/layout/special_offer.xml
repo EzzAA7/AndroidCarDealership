@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
+     android:layout_width="350dp"
         android:layout_height="200dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,37 +23,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/info"
-                    android:layout_width="232dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tvInfo"
+                    android:layout_width="339dp"
+                    android:layout_height="match_parent"
                     android:text=" "
                     android:textAlignment="center"
                     android:textColor="#474343"
                     android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/percentage"
-                    android:layout_width="86dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textColor="#1E1E1E"
-                    android:textSize="20dp" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/expiration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=" "
-                android:textAlignment="center"
-                android:textColor="#FF5733"
-                android:textSize="15dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +43,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnReserve"
+                    android:id="@+id/btnReserveSO"
                     style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
                     android:layout_width="226dp"
                     android:layout_height="wrap_content"
@@ -78,7 +52,7 @@
                     app:icon="@drawable/ic_reserve" />
 
                 <Button
-                    android:id="@+id/btnFav"
+                    android:id="@+id/btnFavSO"
                     style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,6 +60,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
