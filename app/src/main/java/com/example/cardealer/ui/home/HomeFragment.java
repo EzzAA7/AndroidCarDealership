@@ -13,24 +13,31 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cardealer.R;
+import com.example.cardealer.ui.specialOffers.SpecialOffersFragment;
+import com.example.cardealer.ui.specialOffers.SpecialOffersViewModel;
+import com.example.cardealer.view.SharedPrefManager;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
+    public static HomeFragment newInstance() {
+
+        return new HomeFragment();
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
 
-                textView.setText(s);
-            }
-        });
-        return root;
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        // TODO: Use the ViewModel
     }
 }
