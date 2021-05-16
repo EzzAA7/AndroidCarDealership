@@ -46,7 +46,7 @@ public class NavActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_car_menu, R.id.nav_your_reservations, R.id.nav_your_favourites,
-                R.id.nav_special_offers, R.id.nav_profile, R.id.nav_contact, R.id.nav_logout)
+                R.id.nav_special_offers, R.id.nav_profile, R.id.nav_contact, R.id.nav_logout, R.id.nav_add_admin)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
