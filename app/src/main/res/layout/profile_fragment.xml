@@ -8,7 +8,7 @@ android:textAlignment="center"
 tools:context=".ui.profile.ProfileFragment">
 
     <EditText
-        android:id="@+id/editTextFirstName"
+        android:id="@+id/editTextFirstNameCustEdit"
         android:layout_width="331dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
@@ -23,7 +23,7 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextConfirmPassword"
+        android:id="@+id/editTextConfirmPasswordCusEdit"
         android:layout_width="324dp"
         android:layout_height="46dp"
         android:layout_marginStart="24dp"
@@ -34,10 +34,10 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextPasswordCustEdit"
         android:layout_width="324dp"
         android:layout_height="46dp"
         android:layout_marginStart="24dp"
@@ -48,25 +48,25 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
 
     <EditText
-        android:id="@+id/editText_email"
+        android:id="@+id/editText_phoneCustEdit"
         android:layout_width="331dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Phone Number"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLastNameCustEdit" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnCustEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -74,10 +74,10 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordCusEdit" />
 
     <EditText
-        android:id="@+id/editTextLastName"
+        android:id="@+id/editTextLastNameCustEdit"
         android:layout_width="331dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
