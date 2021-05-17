@@ -17,7 +17,11 @@ import android.view.ViewGroup;
 import com.example.cardealer.R;
 import com.example.cardealer.controller.CarAdapter;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.controller.FavouriteAdapter;
 import com.example.cardealer.model.Car;
+import com.example.cardealer.model.Favourite;
+import com.example.cardealer.model.Reservation;
+import com.example.cardealer.service.SharedPrefManager;
 
 import java.util.ArrayList;
 
@@ -25,8 +29,9 @@ public class YourFavouritesFragment extends Fragment {
 
     private YourFavouritesViewModel mViewModel;
     RecyclerView recyclerView;
-    CarAdapter carAdapter;
-    ArrayList<Car> cars;
+    FavouriteAdapter favouriteAdapter;
+    ArrayList<Favourite> favourites;
+    SharedPrefManager sharedPrefManager;
 
     public static YourFavouritesFragment newInstance() {
         return new YourFavouritesFragment();
@@ -41,10 +46,20 @@ public class YourFavouritesFragment extends Fragment {
 //        linearLayout.removeAllViews();
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        cars = Car.carsArrayList;
+        favourites = dataBaseHelper.getAllFavouritesList();
 
-        carAdapter = new CarAdapter(cars, getActivity());
-        recyclerView.setAdapter(carAdapter);
+        sharedPrefManager = SharedPrefManager.getInstance(getActivity());
+        String email = sharedPrefManager.readString("Session","noValue");
+
+        ArrayList<Favourite> myFavourites = new ArrayList<Favourite>();
+        for (Favourite favourite : favourites) {
+            if (favourite.getEmail().equals(email)) {
+                myFavourites.add(favourite);
+            }
+        }
+
+        favouriteAdapter = new FavouriteAdapter(myFavourites, getActivity());
+        recyclerView.setAdapter(favouriteAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(RecyclerView.VERTICAL);
