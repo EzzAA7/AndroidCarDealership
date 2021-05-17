@@ -1,6 +1,8 @@
 package com.example.cardealer.controller;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardealer.R;
 import com.example.cardealer.model.User;
+import com.example.cardealer.view.SignInActivity;
 
 import java.util.ArrayList;
 
@@ -47,7 +50,42 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserVH>{
         holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, (u.getfName() + " " + u.getlName() ) + " has been deleted", Toast.LENGTH_SHORT).show();
+
+//                DataBaseHelper dataBaseHelper =new DataBaseHelper(context,"PROJ", null,1);
+//                if(dataBaseHelper.deleteUser(u.getEmail())){
+//                }
+//                else {
+//                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure to delete " + u.getfName() + "?");
+                builder.setIcon(android.R.drawable.ic_delete);
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        DataBaseHelper dataBaseHelper = new DataBaseHelper(context,"PROJ", null,1);
+                        boolean result = dataBaseHelper.deleteUser(u.getEmail());
+
+                        if(result){
+                            Toast.makeText(context, (u.getfName() + " " + u.getlName() ) + " has been deleted", Toast.LENGTH_SHORT).show();
+                            users.remove(u);
+                            notifyDataSetChanged();
+                        }
+                        else{
+                            Toast.makeText(context,"Delete Failed :( ", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        Toast.makeText(context, "Try Again! :)", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.show();
             }
         });
     }

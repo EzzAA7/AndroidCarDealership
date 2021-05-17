@@ -31,6 +31,9 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("CITY", city);
         contentValues.put("PHONENUMBER", phoneNumber);
         contentValues.put("ROLE", role);
+
+        //TODO: add check if email doesn't exist already
+
         long result = sqLiteDatabase.insert("USER", null, contentValues);
 
         if(result == -1){
@@ -41,8 +44,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
 
     public boolean checkUser(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-
-        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
 
         String []  columns = {"PASSWORD"};
         String selections = "EMAIL" + "=?";
@@ -117,6 +118,15 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return users;
+    }
+
+    //---deletes a particular user---
+    public boolean deleteUser(String email)
+    {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+//        return sqLiteDatabase.delete("USER", "EMAIL" + "=" + email, null) > 0;
+        return sqLiteDatabase.delete("USER", "EMAIL" + "=?", new String[]{String.valueOf(email)}) > 0;
+
     }
 
 
