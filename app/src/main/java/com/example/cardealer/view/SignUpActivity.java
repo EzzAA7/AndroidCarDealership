@@ -85,6 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                     etLastName.getText().toString().isEmpty()||
                         etEmail.getText().toString().isEmpty() ||
                         etPassword.getText().toString().isEmpty() ||
+                        etPhoneNumber.getText().toString().isEmpty() ||
                         etConfirmPassword.getText().toString().isEmpty()){
 
                     showAlertDialogEmpty(linearLayout);
