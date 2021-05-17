@@ -51,12 +51,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserVH>{
             @Override
             public void onClick(View v) {
 
-//                DataBaseHelper dataBaseHelper =new DataBaseHelper(context,"PROJ", null,1);
-//                if(dataBaseHelper.deleteUser(u.getEmail())){
-//                }
-//                else {
-//                }
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Confirmation");
                 builder.setMessage("Are you sure to delete " + u.getfName() + "?");
@@ -82,7 +76,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserVH>{
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        Toast.makeText(context, "Try Again! :)", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
