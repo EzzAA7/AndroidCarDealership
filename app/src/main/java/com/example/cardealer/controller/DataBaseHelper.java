@@ -94,7 +94,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return false;
     }
 
-        public ArrayList<User> getAllUsersList() {
+    public ArrayList<User> getAllUsersList() {
         ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER", null);
@@ -124,9 +124,22 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     public boolean deleteUser(String email)
     {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-//        return sqLiteDatabase.delete("USER", "EMAIL" + "=" + email, null) > 0;
         return sqLiteDatabase.delete("USER", "EMAIL" + "=?", new String[]{String.valueOf(email)}) > 0;
+    }
 
+    //---updates a particular user---
+    public boolean updateUser(String firstName, String lastName, String email, String password, String phoneNumber)
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("FNAME", firstName);
+        contentValues.put("LNAME",
+                lastName);
+        contentValues.put("EMAIL", email);
+        contentValues.put("PASSWORD", password);
+        contentValues.put("PHONENUMBER", phoneNumber);
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        return sqLiteDatabase.update("USER", contentValues, "EMAIL" + "=?", new String[]{String.valueOf(email)}) > 0;
     }
 
 

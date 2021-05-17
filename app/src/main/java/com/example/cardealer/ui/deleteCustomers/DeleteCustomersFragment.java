@@ -36,13 +36,15 @@ public class DeleteCustomersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.delete_customers_fragment, container, false);
 
+        View view = inflater.inflate(R.layout.delete_customers_fragment, container, false);
+        // setup database
         DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         users = dataBaseHelper.getAllUsersList();
 
+        // setup the array list to be used in recycleView to be only the customers (no admins)
         customers = new ArrayList<User>();
         for (User user : users) {
             if (user.getRole().equals("customer")) {
@@ -50,9 +52,10 @@ public class DeleteCustomersFragment extends Fragment {
             }
         }
 
+        // this recycle view uses the User Adapter component
         userAdapter = new UserAdapter(customers, getActivity());
         recyclerView.setAdapter(userAdapter);
-
+        // recycle view configuring
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(llm);
