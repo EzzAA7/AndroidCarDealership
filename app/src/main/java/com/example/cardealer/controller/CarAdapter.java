@@ -68,7 +68,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
                         holder.tvDistance.getText().toString(),
                         c.getPrice(),
                         (currentUser.getfName()+ " " + currentUser.getlName()),
-                        currentUser.getPhoneNumber(),
+                        currentUser.getPhoneNumber(), currentUser.getEmail(),
                         formattedDate);
 
                 // check if db registeration action succeeded

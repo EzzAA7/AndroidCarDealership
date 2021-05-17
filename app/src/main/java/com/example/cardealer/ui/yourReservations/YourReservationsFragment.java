@@ -21,6 +21,8 @@ import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.controller.ReservationAdapter;
 import com.example.cardealer.model.Car;
 import com.example.cardealer.model.Reservation;
+import com.example.cardealer.model.User;
+import com.example.cardealer.service.SharedPrefManager;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class YourReservationsFragment extends Fragment {
     RecyclerView recyclerView;
     ReservationAdapter reservationAdapter;
     ArrayList<Reservation> reservations;
+    SharedPrefManager sharedPrefManager;
 
     public static YourReservationsFragment newInstance() {
 
@@ -46,7 +49,18 @@ public class YourReservationsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         reservations = dataBaseHelper.getAllReservationsList();
 
-        reservationAdapter = new ReservationAdapter(reservations, getActivity());
+        // get current session's user
+        sharedPrefManager = SharedPrefManager.getInstance(getActivity());
+        String email = sharedPrefManager.readString("Session","noValue");
+
+        ArrayList<Reservation> myReservations = new ArrayList<Reservation>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getEmail().equals(email)) {
+                myReservations.add(reservation);
+            }
+        }
+
+        reservationAdapter = new ReservationAdapter(myReservations, getActivity());
         recyclerView.setAdapter(reservationAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
