@@ -43,6 +43,11 @@
         android:label="Contact"
         tools:layout="@layout/contact_fragment" />
     <fragment
+        android:id="@+id/nav_home_admin"
+        android:name="com.example.cardealer.ui.profile.ProfileFragment"
+        android:label="Home"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
         android:id="@+id/nav_delete_customers"
         android:name="com.example.cardealer.ui.deleteCustomers.DeleteCustomersFragment"
         android:label="Delete Customers"

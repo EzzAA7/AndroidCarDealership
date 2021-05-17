@@ -11,7 +11,10 @@ import com.example.cardealer.service.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -48,27 +51,33 @@ public class NavActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_car_menu, R.id.nav_your_reservations, R.id.nav_your_favourites,
                 R.id.nav_special_offers, R.id.nav_profile, R.id.nav_contact, R.id.nav_logout,
-                R.id.nav_add_admin, R.id.nav_delete_customers)
+                R.id.nav_add_admin, R.id.nav_delete_customers, R.id.nav_home_admin)
                 .setDrawerLayout(drawer)
                 .build();
 
         DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
         if(dataBaseHelper.isUserAdmin(email)){
             // TODO: fix to admin home after creating it
-//            navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_car_menu).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_your_reservations).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_your_favourites).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_special_offers).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_contact).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
+
+            // use this to navigate to home_admin as first destination but unfortunaley it removes menu button
+//            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);  // Hostfragment
+//            NavInflater inflater = navHostFragment.getNavController().getNavInflater();
+//            NavGraph graph = inflater.inflate(R.navigation.mobile_navigation);
+//            graph.setStartDestination(R.id.nav_home_admin);
+//            navController.setGraph(graph);
+
         }
         else{
-//            navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_add_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_delete_customers).setVisible(false);
-
-
         }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);

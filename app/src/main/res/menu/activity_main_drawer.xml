@@ -37,6 +37,11 @@
             android:icon="@drawable/ic_contact"/>
 
         <item
+            android:id="@+id/nav_home_admin"
+            android:title="Home"
+            android:icon="@drawable/ic_home"/>
+
+        <item
             android:id="@+id/nav_delete_customers"
             android:title="Delete Customers"
             android:icon="@drawable/ic_delete"/>
