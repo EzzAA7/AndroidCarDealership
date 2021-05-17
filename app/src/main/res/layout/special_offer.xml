@@ -2,63 +2,72 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_width="350dp"
-        android:layout_height="200dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="24dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="24dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/special_offer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textAlignment="center"
+                android:textColor="#474343"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCarDistSO"
+            android:layout_width="338dp"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textAlignment="center"
+            android:textColor="#474343"
+            android:textSize="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <ImageView
+            <Button
+                android:id="@+id/btnReserveSO"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+                android:layout_width="226dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Reserve"
+                app:icon="@drawable/ic_reserve" />
+
+            <Button
+                android:id="@+id/btnFavSO"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/special_offer" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvInfo"
-                    android:layout_width="339dp"
-                    android:layout_height="match_parent"
-                    android:text=" "
-                    android:textAlignment="center"
-                    android:textColor="#474343"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnReserveSO"
-                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
-                    android:layout_width="226dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="Reserve"
-                    app:icon="@drawable/ic_reserve" />
-
-                <Button
-                    android:id="@+id/btnFavSO"
-                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_your_favourites" />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_your_favourites" />
         </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
