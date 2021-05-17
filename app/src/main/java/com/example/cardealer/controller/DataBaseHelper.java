@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.cardealer.model.Reservation;
 import com.example.cardealer.model.User;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -18,6 +19,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
+    //-------------------------------- USER FUNCTIONS ------------------------------------------------
     public boolean registerUser(String firstName, String lastName, String email, String password, String gender, String country, String city, String phoneNumber, String role) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -34,6 +36,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
 
         //TODO: add check if email doesn't exist already
 
+        // once contentValues are setup we can insert the user to the database
         long result = sqLiteDatabase.insert("USER", null, contentValues);
 
         if(result == -1){
@@ -42,6 +45,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return true;
     }
 
+    // For login to check if such user exists
     public boolean checkUser(String email, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
@@ -142,10 +146,70 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return sqLiteDatabase.update("USER", contentValues, "EMAIL" + "=?", new String[]{String.valueOf(email)}) > 0;
     }
 
+    // func to return current user
+    public User getUser(String email) {
+        ArrayList<User> users = getAllUsersList();
+        for (User user: users){
+            if (user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    //---------------------------- RESERVATION FUNCTIONS -------------------------------------------
+
+    public boolean createReservation(String carInfo, String carDistance, String carPrice, String name, String phone, String dateTime) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("CARINFO", carInfo);
+        contentValues.put("CARDISTANCE",
+                carDistance);
+        contentValues.put("CARPRICE", carPrice);
+        contentValues.put("NAME", name);
+        contentValues.put("PHONE", phone);
+        contentValues.put("DATETIME", dateTime);
+
+        //TODO: add check if email doesn't exist already
+
+        // once contentValues are setup we can insert the user to the database
+        long result = sqLiteDatabase.insert("RESERVATION", null, contentValues);
+
+        if(result == -1){
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Reservation> getAllReservationsList() {
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM RESERVATION", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                String carInfo = cursor.getString(1);
+                String carDistance = cursor.getString(2);
+                String carPrice = cursor.getString(3);
+                String name = cursor.getString(4);
+                String phone = cursor.getString(5);
+                String dateTime = cursor.getString(6);
+
+                Reservation reservation = new Reservation(carInfo, carDistance, carPrice, name, phone, dateTime);
+                System.out.println(reservation.toString());
+                reservations.add(reservation);
+            } while (cursor.moveToNext());
+        }
+        return reservations;
+    }
+
+    //---------------------- DB OVERRIDDEN FUNCTIONS --------------------------
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, DATETIME TEXT ) ");
     }
 
     @Override

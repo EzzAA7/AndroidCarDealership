@@ -62,8 +62,7 @@ public class ProfileFragment extends Fragment {
         sharedPrefManager = SharedPrefManager.getInstance(getActivity());
         String email = sharedPrefManager.readString("Session","noValue");
         // get current user from db using userSession
-        users = dataBaseHelper.getAllUsersList();
-        User currentUser = getUser(email);
+        User currentUser = dataBaseHelper.getUser(email);
 
         // configure initial values for profile to be current user's values
         etFirstName.setText(currentUser.getfName());
@@ -118,16 +117,6 @@ public class ProfileFragment extends Fragment {
 
 
         return view;
-    }
-
-    // func to return current user
-    private User getUser(String email) {
-        for (User user: users){
-            if (user.getEmail().equals(email)){
-                return user;
-            }
-        }
-        return null;
     }
 
     @Override
