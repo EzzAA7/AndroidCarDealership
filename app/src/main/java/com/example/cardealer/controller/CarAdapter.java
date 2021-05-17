@@ -1,6 +1,8 @@
 package com.example.cardealer.controller;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,34 +55,49 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
         holder.buttonReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get current session's user
-                sharedPrefManager = SharedPrefManager.getInstance(context);
-                String email = sharedPrefManager.readString("Session","noValue");
-                User currentUser = dataBaseHelper.getUser(email);
 
-                // get current formated date
-                LocalDateTime myDateObj = LocalDateTime.now();
-                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                String formattedDate = myDateObj.format(myFormatObj);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure to reserve this " + c.getMake() + "?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setCancelable(false);
+                builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        // get current session's user
+                        sharedPrefManager = SharedPrefManager.getInstance(context);
+                        String email = sharedPrefManager.readString("Session","noValue");
+                        User currentUser = dataBaseHelper.getUser(email);
 
-                // once everything is ready we can create a reservation
-                boolean result = dataBaseHelper.createReservation(holder.tvModelInfo.getText().toString(),
-                        holder.tvDistance.getText().toString(),
-                        c.getPrice(),
-                        (currentUser.getfName()+ " " + currentUser.getlName()),
-                        currentUser.getPhoneNumber(), currentUser.getEmail(),
-                        formattedDate);
+                        // get current formated date
+                        LocalDateTime myDateObj = LocalDateTime.now();
+                        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String formattedDate = myDateObj.format(myFormatObj);
 
-                // check if db reservation action succeeded
-                if(result){
+                        // once everything is ready we can create a reservation
+                        boolean result = dataBaseHelper.createReservation(holder.tvModelInfo.getText().toString(),
+                                holder.tvDistance.getText().toString(),
+                                c.getPrice(),
+                                (currentUser.getfName()+ " " + currentUser.getlName()),
+                                currentUser.getPhoneNumber(), currentUser.getEmail(),
+                                formattedDate);
 
-                    // send cofirmation toast
-                    Toast.makeText(context, ("The " + c.getMake() + " " + c.getModel() + " " + c.getYear()) + " has been reserved", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(context, "Reservation Failed, try Again!", Toast.LENGTH_SHORT).show();
-                }
+                        if(result){
+                            // send confirmation toast
+                            Toast.makeText(context, ("The " + c.getMake() + " " + c.getModel() + " " + c.getYear()) + " has been reserved", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(context, "Reservation Failed, try Again!", Toast.LENGTH_SHORT).show();
+                        }
 
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                    }
+                });
+                builder.show();
             }
         });
 
