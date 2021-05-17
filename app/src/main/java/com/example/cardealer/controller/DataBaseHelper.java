@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.cardealer.model.Favourite;
 import com.example.cardealer.model.Reservation;
 import com.example.cardealer.model.User;
 
@@ -158,7 +159,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     }
 
     //---------------------------- RESERVATION FUNCTIONS -------------------------------------------
-
     public boolean createReservation(String carInfo, String carDistance, String carPrice, String name, String phone, String email, String dateTime) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -206,12 +206,60 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return reservations;
     }
 
+    //---------------------------- FAVOURITE FUNCTIONS -------------------------------------------
+    public boolean createFavourite(String carInfo, String carDistance, String carPrice, String name, String phone, String email) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("CARINFO", carInfo);
+        contentValues.put("CARDISTANCE",
+                carDistance);
+        contentValues.put("CARPRICE", carPrice);
+        contentValues.put("NAME", name);
+        contentValues.put("PHONE", phone);
+        contentValues.put("EMAIL", email);
+
+        //TODO: add check if email doesn't exist already
+
+        // once contentValues are setup we can insert the user to the database
+        long result = sqLiteDatabase.insert("FAVOURITE", null, contentValues);
+
+        if(result == -1){
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Favourite> getAllFavouritesList() {
+        ArrayList<Favourite> favourites = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM FAVOURITE", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                String carInfo = cursor.getString(1);
+                String carDistance = cursor.getString(2);
+                String carPrice = cursor.getString(3);
+                String name = cursor.getString(4);
+                String phone = cursor.getString(5);
+                String email = cursor.getString(6);
+
+                Favourite favourite = new Favourite(carInfo, carDistance, carPrice, name, phone, email);
+                System.out.println(favourite.toString());
+                favourites.add(favourite);
+            } while (cursor.moveToNext());
+        }
+        return favourites;
+    }
+
+
     //---------------------- DB OVERRIDDEN FUNCTIONS --------------------------
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT, DATETIME TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS FAVOURITE(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT ) ");
     }
 
     @Override
