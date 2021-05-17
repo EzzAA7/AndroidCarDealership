@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.cardealer.model.User;
+
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.ArrayList;
 
 
 public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
@@ -89,11 +93,35 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return false;
     }
 
+        public ArrayList<User> getAllUsersList() {
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                String fName = cursor.getString(1);
+                String lName = cursor.getString(2);
+                String email = cursor.getString(3);
+                String password = cursor.getString(4);
+                String gender = cursor.getString(5);
+                String country = cursor.getString(6);
+                String city = cursor.getString(7);
+                String phoneNumber = cursor.getString(8);
+                String role = cursor.getString(9);
+
+                User user = new User(fName, lName, email, password, gender, country, city, phoneNumber, role);
+                System.out.println(user.toString());
+                users.add(user);
+            } while (cursor.moveToNext());
+        }
+        return users;
+    }
 
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE CAR(YEAR TEXT, MAKE TEXT,MODEL TEXT, DISTANCE TEXT, PRICE TEXT, ACCIDENTS BOOLEAN, OFFERS BOOLEAN ) ");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
     }
 

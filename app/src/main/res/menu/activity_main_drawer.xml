@@ -37,6 +37,10 @@
             android:icon="@drawable/ic_contact"/>
 
         <item
+            android:id="@+id/nav_delete_customers"
+            android:title="Delete Customers"
+            android:icon="@drawable/ic_delete"/>
+        <item
             android:id="@+id/nav_add_admin"
             android:title="Add Admin"
             android:icon="@drawable/ic_add"/>
