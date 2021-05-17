@@ -71,7 +71,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
                         currentUser.getPhoneNumber(), currentUser.getEmail(),
                         formattedDate);
 
-                // check if db registeration action succeeded
+                // check if db reservation action succeeded
                 if(result){
 
                     // send cofirmation toast
@@ -87,8 +87,26 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
         holder.buttonFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, (c.getMake() + " " + c.getModel() + " " + c.getYear()) + " has been added to favourites", Toast.LENGTH_SHORT).show();
-            }
+                // get current session's user
+                sharedPrefManager = SharedPrefManager.getInstance(context);
+                String email = sharedPrefManager.readString("Session","noValue");
+                User currentUser = dataBaseHelper.getUser(email);
+
+                // once everything is ready we can create a favourite
+                boolean result = dataBaseHelper.createFavourite(holder.tvModelInfo.getText().toString(),
+                        holder.tvDistance.getText().toString(),
+                        c.getPrice(),
+                        (currentUser.getfName()+ " " + currentUser.getlName()),
+                        currentUser.getPhoneNumber(), currentUser.getEmail());
+
+                // check if db favourite action succeeded
+                if(result){
+                    // send cofirmation toast
+                    Toast.makeText(context, ("The " + c.getMake() + " " + c.getModel() + " " + c.getYear())+ " has been favourited ❤", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "Favourite Failed, try Again!", Toast.LENGTH_SHORT).show();
+                }            }
         });
     }
 
