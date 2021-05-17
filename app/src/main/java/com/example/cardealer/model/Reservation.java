@@ -7,19 +7,29 @@ public class Reservation {
     private String carPrice;
     private String name;
     private String phone;
+    private String email;
     private String dateTime;
 
     public Reservation() {
 
     }
 
-    public Reservation(String carInfo, String carDistance, String carPrice, String name, String phone, String dateTime) {
+    public Reservation(String carInfo, String carDistance, String carPrice, String name, String phone, String email, String dateTime) {
         this.carInfo = carInfo;
         this.carDistance = carDistance;
         this.carPrice = carPrice;
         this.name = name;
         this.phone = phone;
+        this.email= email;
         this.dateTime = dateTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCarInfo() {

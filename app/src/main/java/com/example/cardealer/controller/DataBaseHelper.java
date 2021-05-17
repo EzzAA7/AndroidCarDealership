@@ -159,7 +159,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
 
     //---------------------------- RESERVATION FUNCTIONS -------------------------------------------
 
-    public boolean createReservation(String carInfo, String carDistance, String carPrice, String name, String phone, String dateTime) {
+    public boolean createReservation(String carInfo, String carDistance, String carPrice, String name, String phone, String email, String dateTime) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("CARINFO", carInfo);
@@ -168,6 +168,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("CARPRICE", carPrice);
         contentValues.put("NAME", name);
         contentValues.put("PHONE", phone);
+        contentValues.put("EMAIL", email);
         contentValues.put("DATETIME", dateTime);
 
         //TODO: add check if email doesn't exist already
@@ -194,9 +195,10 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
                 String carPrice = cursor.getString(3);
                 String name = cursor.getString(4);
                 String phone = cursor.getString(5);
-                String dateTime = cursor.getString(6);
+                String email = cursor.getString(6);
+                String dateTime = cursor.getString(7);
 
-                Reservation reservation = new Reservation(carInfo, carDistance, carPrice, name, phone, dateTime);
+                Reservation reservation = new Reservation(carInfo, carDistance, carPrice, name, phone, email, dateTime);
                 System.out.println(reservation.toString());
                 reservations.add(reservation);
             } while (cursor.moveToNext());
@@ -209,7 +211,7 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, DATETIME TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT, DATETIME TEXT ) ");
     }
 
     @Override
