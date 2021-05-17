@@ -51,7 +51,7 @@ public class NavActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_car_menu, R.id.nav_your_reservations, R.id.nav_your_favourites,
                 R.id.nav_special_offers, R.id.nav_profile, R.id.nav_contact, R.id.nav_logout,
-                R.id.nav_add_admin, R.id.nav_delete_customers, R.id.nav_home_admin)
+                R.id.nav_add_admin, R.id.nav_delete_customers, R.id.nav_view_reservations, R.id.nav_home_admin)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -65,7 +65,6 @@ public class NavActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_special_offers).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_contact).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
-
             // use this to navigate to home_admin as first destination but unfortunaley it removes menu button
 //            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);  // Hostfragment
 //            NavInflater inflater = navHostFragment.getNavController().getNavInflater();
@@ -78,6 +77,8 @@ public class NavActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_add_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_delete_customers).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_view_reservations).setVisible(false);
+
         }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);

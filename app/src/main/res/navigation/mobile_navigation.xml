@@ -58,6 +58,11 @@
         android:label="Add Admin"
         tools:layout="@layout/add_admin_fragment" />
     <fragment
+        android:id="@+id/nav_view_reservations"
+        android:name="com.example.cardealer.ui.viewReservations.ViewReservationsFragment"
+        android:label="View All Reservations"
+        tools:layout="@layout/view_reservations_fragment" />
+    <fragment
         android:id="@+id/nav_logout"
         android:name="com.example.cardealer.ui.logout.LogoutFragment"
         android:label="Logout"
