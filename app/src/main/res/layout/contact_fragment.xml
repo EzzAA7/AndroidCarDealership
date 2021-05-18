@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewCar"
         android:layout_width="355dp"
         android:layout_height="182dp"
         android:scaleType="centerInside"

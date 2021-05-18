@@ -13,7 +13,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cardealer.R;
 
@@ -32,6 +35,14 @@ public class ContactFragment extends Fragment {
         Button dialButton = (Button) view.findViewById(R.id.button_dial);
         Button gmailButton = (Button) view.findViewById(R.id.button_gmail);
         Button mapsButton = (Button) view.findViewById(R.id.button_maps);
+
+        ImageView img = (ImageView) view.findViewById(R.id.imageViewCar);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.translate));
+            }
+        });
 
         dialButton.setOnClickListener(new View.OnClickListener() {
             @Override
