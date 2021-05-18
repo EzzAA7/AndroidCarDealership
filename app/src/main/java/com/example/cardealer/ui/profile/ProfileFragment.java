@@ -2,9 +2,15 @@ package com.example.cardealer.ui.profile;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import java.io.InputStream;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,12 +28,14 @@ import android.widget.Toast;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.model.Image;
 import com.example.cardealer.model.User;
 import com.example.cardealer.service.SharedPrefManager;
 import com.example.cardealer.view.SignUpActivity;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
@@ -35,10 +43,15 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel mViewModel;
     EditText etFirstName, etLastName, etPassword, etConfirmPassword, etPhoneNumber;
     TextView tvAreaCodeProfile;
-    Button editCustomerButton;
+    Button editCustomerButton, changePictureButton;
     LinearLayout linearLayout;
     SharedPrefManager sharedPrefManager;
     ArrayList<User> users;
+
+    private static final int GALLERY_REQUEST_CODE = 100;
+    private static final int CAMERA_REQUEST_CODE = 200;
+    private ImageView selectedImageView;
+    private EditText titleEditText;
 
     public static ProfileFragment newInstance() {
 
@@ -49,6 +62,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
+        this.selectedImageView = (ImageView) view.findViewById(R.id.imageViewProfile);
 
         // activity data
         linearLayout = (LinearLayout) view.findViewById(R.id.layout);
@@ -60,7 +74,7 @@ public class ProfileFragment extends Fragment {
         tvAreaCodeProfile = (TextView) view.findViewById(R.id.tvAreaCodeProfile);
         editCustomerButton = (Button) view.findViewById(R.id.btnCustEdit);
         ImageView img = (ImageView) view.findViewById(R.id.imageViewProfile);
-        img.setImageResource(R.drawable.defualt_profile);
+        changePictureButton = (Button) view.findViewById(R.id.buttonChangePic);
 
         // setup db
         DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
@@ -71,6 +85,28 @@ public class ProfileFragment extends Fragment {
         // get current user from db using userSession
         User currentUser = dataBaseHelper.getUser(email);
 
+        // TODO: let user update instead of create in case of new press (copy this down to onClick)
+        try {
+            ArrayList<Image> images = dataBaseHelper.getAllImages();
+            Bitmap myImage = null;
+
+            for(Image image: images){
+                if (image.getTitle().equals(email)){
+                    myImage = image.getImage();
+                }
+            }
+
+            if(myImage != null){
+                img.setImageBitmap(myImage);
+            }
+            else {
+                img.setImageResource(R.drawable.defualt_profile);
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
         // configure initial values for profile to be current user's values
         etFirstName.setText(currentUser.getfName());
         etLastName.setText(currentUser.getlName());
@@ -80,6 +116,16 @@ public class ProfileFragment extends Fragment {
         String phone = currentUser.getPhoneNumber();
         tvAreaCodeProfile.setText(phone.substring(0,5));
         etPhoneNumber.setText(phone.substring(5));
+
+        changePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
+            }
+        });
 
         editCustomerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +207,57 @@ public class ProfileFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void cancel(View view) {
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data.getData()!= null && data!=null) {
+            try {
+                Uri imageFilePath = data.getData();
+                Bitmap imageToStore = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageFilePath);
+                selectedImageView.setImageBitmap(imageToStore);
+
+                storeImage(imageToStore);
+
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+    }
+
+    public void storeImage (Bitmap imageToStore){
+
+        try {
+            if(selectedImageView.getDrawable()!= null && imageToStore != null){
+                DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
+
+                sharedPrefManager = SharedPrefManager.getInstance(getActivity());
+                String email = sharedPrefManager.readString("Session","noValue");
+
+                boolean result = dataBaseHelper.storeImage(new Image(email, imageToStore));
+                if(result){
+                    Toast.makeText(getActivity(), "added to db!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getActivity(), "failed adding pic!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else{
+                Toast.makeText(getActivity(), "Please select an image", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     @Override
