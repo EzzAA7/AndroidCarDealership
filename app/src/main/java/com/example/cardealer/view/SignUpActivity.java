@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class SignUpActivity extends AppCompatActivity {
 
     EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etPhoneNumber;
+    TextView tvAreaCode;
     Button addCustomerButton,switchToLogIn;
     Intent intentToSignIn;
     LinearLayout linearLayout;
@@ -40,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         etPassword = (EditText)findViewById(R.id.editTextPassword);
         etConfirmPassword = (EditText)findViewById(R.id.editTextConfirmPassword);
         etPhoneNumber = (EditText)findViewById(R.id.editTextPhoneNumber);
+        tvAreaCode = (TextView) findViewById(R.id.textViewAreaCode);
         addCustomerButton = (Button) findViewById(R.id.btnSignUp);
         switchToLogIn = (Button) findViewById(R.id.btnSwitchToLogin);
 
@@ -83,6 +86,9 @@ public class SignUpActivity extends AppCompatActivity {
                         adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
+
+                        // set area code to 00970
+                        tvAreaCode.setText("00970");
                         break;
                     case "Jordan":
                         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -92,6 +98,10 @@ public class SignUpActivity extends AppCompatActivity {
                         adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
+
+                        // set area code to 00970
+                        tvAreaCode.setText("00962");
+
                         break;
                     case "Syria":
                         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -101,6 +111,9 @@ public class SignUpActivity extends AppCompatActivity {
                         adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
+
+                        // set area code to 00970
+                        tvAreaCode.setText("00963");
                         break;
                     case "Lebanon":
                         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -110,6 +123,10 @@ public class SignUpActivity extends AppCompatActivity {
                         adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
+
+                        // set area code to 00970
+                        tvAreaCode.setText("00961");
+
                         break;
                 }
 
@@ -177,13 +194,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                             String password = etPassword.getText().toString();
                             String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+                            String phone = etPhoneNumber.getText().toString();
 
                             boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
                                     etLastName.getText().toString(), etEmail.getText().toString(),
                                     pw_hash, gender.getSelectedItem().toString(),
                                     countries.getSelectedItem().toString(),
                                     cities.getSelectedItem().toString(),
-                                    etPhoneNumber.getText().toString(),
+                                    (tvAreaCode.getText().toString() + phone),
                                     "customer"
                             );
 
