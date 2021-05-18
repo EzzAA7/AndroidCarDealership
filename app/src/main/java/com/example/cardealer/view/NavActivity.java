@@ -3,6 +3,7 @@ package com.example.cardealer.view;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cardealer.R;
@@ -51,7 +52,8 @@ public class NavActivity extends AppCompatActivity {
         TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
         navName.setText(currentUser.getfName() + " " + currentUser.getlName());
 
-
+        ImageView img = (ImageView) headerView.findViewById(R.id.imageViewProfileMenu);
+        img.setImageResource(R.drawable.defualt_profile);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
