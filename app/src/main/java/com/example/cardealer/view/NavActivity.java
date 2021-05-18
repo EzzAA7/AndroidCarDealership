@@ -1,13 +1,16 @@
 package com.example.cardealer.view;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.model.Image;
 import com.example.cardealer.model.User;
 import com.example.cardealer.service.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +25,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
 
 public class NavActivity extends AppCompatActivity {
 
@@ -54,7 +59,29 @@ public class NavActivity extends AppCompatActivity {
 
         // setup picture value in menu header to current user's name
         ImageView img = (ImageView) headerView.findViewById(R.id.imageViewProfileMenu);
-        img.setImageResource(R.drawable.defualt_profile);
+
+        try {
+            ArrayList<Image> images = dataBaseHelper.getAllImages();
+            Bitmap myImage = null;
+
+            for(Image image: images){
+                if (image.getTitle().equals(email)){
+                    myImage = image.getImage();
+                }
+            }
+
+            if(myImage != null){
+                img.setImageBitmap(myImage);
+            }
+            else {
+                img.setImageResource(R.drawable.defualt_profile);
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
