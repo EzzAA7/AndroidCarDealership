@@ -4,13 +4,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.example.cardealer.model.Favourite;
+import com.example.cardealer.model.Image;
 import com.example.cardealer.model.Reservation;
 import com.example.cardealer.model.User;
 
+import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -248,14 +253,73 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         return favourites;
     }
 
+    // ---------------- IMAGE FUNCTIONS ----------------------------------------------------
+
+    public boolean storeImage(Image image){
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            Bitmap imageToStoreBitmap = image.getImage();
+
+            ByteArrayOutputStream objectByteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+            byte[] imageInByte = objectByteArrayOutputStream.toByteArray();
+
+            ContentValues values = new ContentValues();
+            values.put("TITLE", image.getTitle());
+            values.put("IMAGE", imageInByte);
+
+            long result = db.insert("IMAGES", null, values);
+
+            if(result == -1){
+                return false;
+            }
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public ArrayList<Image> getAllImages (){
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            ArrayList<Image> images = new ArrayList<>();
+
+            Cursor objectCursor = db.rawQuery("SELECT * FROM IMAGES", null);
+            if(objectCursor.getCount() !=0){
+
+                while (objectCursor.moveToNext()){
+                    String imageTitle = objectCursor.getString(1);
+                    byte[] imageBytes = objectCursor.getBlob(2);
+
+                    Bitmap objectBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                    images.add(new Image(imageTitle, objectBitmap));
+                }
+
+                return images;
+
+            }
+            else{
+                return null;
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     //---------------------- DB OVERRIDDEN FUNCTIONS --------------------------
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS USER(ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME TEXT,LNAME TEXT, EMAIL TEXT, PASSWORD TEXT, GENDER TEXT, COUNTRY TEXT, CITY TEXT, PHONENUMBER TEXT, ROLE TEXT ) ");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT, DATETIME TEXT ) ");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS FAVOURITE(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT,CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS RESERVATION(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT, CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT, DATETIME TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS FAVOURITE(ID INTEGER PRIMARY KEY AUTOINCREMENT, CARINFO TEXT, CARDISTANCE TEXT, CARPRICE TEXT, NAME TEXT, PHONE TEXT, EMAIL TEXT ) ");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS IMAGES(ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, IMAGE BLOB ) ");
     }
 
     @Override
