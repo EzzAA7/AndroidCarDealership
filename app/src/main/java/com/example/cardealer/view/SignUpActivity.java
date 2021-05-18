@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,13 +67,60 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Cities adapter
         Spinner cities = (Spinner) findViewById(R.id.city);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.palestinian_cities_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        cities.setAdapter(adapter2);
+
+        countries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                String selected_country = countries.getSelectedItem().toString();
+                // setup which cities to appear based on selected country
+                switch (selected_country){
+                    case "Palestine":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        ArrayAdapter<CharSequence> adapterCities = ArrayAdapter.createFromResource(SignUpActivity.this,
+                                R.array.palestinian_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+                        break;
+                    case "Jordan":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(SignUpActivity.this,
+                                R.array.jordan_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+                        break;
+                    case "Syria":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(SignUpActivity.this,
+                                R.array.syrian_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+                        break;
+                    case "Lebanon":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(SignUpActivity.this,
+                                R.array.leb_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
+
 
         intentToSignIn = new Intent(SignUpActivity.this,SignInActivity.class);
         DataBaseHelper dataBaseHelper =new DataBaseHelper(SignUpActivity.this,"PROJ", null,1);

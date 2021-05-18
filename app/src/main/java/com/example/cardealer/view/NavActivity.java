@@ -52,6 +52,7 @@ public class NavActivity extends AppCompatActivity {
         TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
         navName.setText(currentUser.getfName() + " " + currentUser.getlName());
 
+        // setup picture value in menu header to current user's name
         ImageView img = (ImageView) headerView.findViewById(R.id.imageViewProfileMenu);
         img.setImageResource(R.drawable.defualt_profile);
 
