@@ -14,16 +14,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
 import com.example.cardealer.view.SignInActivity;
+import com.example.cardealer.view.SignUpActivity;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -31,6 +34,7 @@ public class AddAdminFragment extends Fragment {
 
     private AddAdminViewModel mViewModel;
     EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword, etPhoneNumber;
+    TextView tvAreaCodeAdmin;
     Button createAdminButton;
     Intent intentToSignIn;
     LinearLayout linearLayout;
@@ -52,6 +56,7 @@ public class AddAdminFragment extends Fragment {
         etEmail = (EditText)view.findViewById(R.id.editText_emailAdmin);
         etPassword = (EditText)view.findViewById(R.id.editTextPasswordAdmin);
         etConfirmPassword = (EditText)view.findViewById(R.id.editTextConfirmPasswordAdmin);
+        tvAreaCodeAdmin = (TextView) view.findViewById(R.id.tvAreaCodeAdmin);
         etPhoneNumber = (EditText)view.findViewById(R.id.editTextPhoneNumberAdmin);
         createAdminButton = (Button) view.findViewById(R.id.btnCreateAdmin);
 
@@ -79,13 +84,73 @@ public class AddAdminFragment extends Fragment {
 
         // Cities adapter
         Spinner cities = (Spinner) view.findViewById(R.id.cityAdmin);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
-                R.array.palestinian_cities_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        cities.setAdapter(adapter2);
+
+        countries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                String selected_country = countries.getSelectedItem().toString();
+                // setup which cities to appear based on selected country
+                switch (selected_country){
+                    case "Palestine":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        ArrayAdapter<CharSequence> adapterCities = ArrayAdapter.createFromResource(getActivity(),
+                                R.array.palestinian_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+
+                        // set area code to 00970
+                        tvAreaCodeAdmin.setText("00970");
+                        break;
+                    case "Jordan":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(getActivity(),
+                                R.array.jordan_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+
+                        // set area code to 00962
+                        tvAreaCodeAdmin.setText("00962");
+
+                        break;
+                    case "Syria":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(getActivity(),
+                                R.array.syrian_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+
+                        // set area code to 00963
+                        tvAreaCodeAdmin.setText("00963");
+                        break;
+                    case "Lebanon":
+                        // Create an ArrayAdapter using the string array and a default spinner layout
+                        adapterCities = ArrayAdapter.createFromResource(getActivity(),
+                                R.array.leb_cities_array, android.R.layout.simple_spinner_item);
+                        // Specify the layout to use when the list of choices appears
+                        adapterCities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        cities.setAdapter(adapterCities);
+
+                        // set area code to 00961
+                        tvAreaCodeAdmin.setText("00961");
+
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
 
         intentToSignIn = new Intent(getActivity(), SignInActivity.class);
         DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
@@ -141,13 +206,14 @@ public class AddAdminFragment extends Fragment {
 
                             String password = etPassword.getText().toString();
                             String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+                            String phone = etPhoneNumber.getText().toString();
 
                             boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
                                     etLastName.getText().toString(), etEmail.getText().toString(),
                                     pw_hash, gender.getSelectedItem().toString(),
                                     countries.getSelectedItem().toString(),
                                     cities.getSelectedItem().toString(),
-                                    etPhoneNumber.getText().toString(),
+                                    (tvAreaCodeAdmin.getText().toString() + phone),
                                     "admin");
 
                             // check if db registeration action succeeded

@@ -171,13 +171,15 @@
         app:layout_constraintEnd_toStartOf="@+id/genderAdmin"
         app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordAdmin" />
 
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvAreaCodeAdmin"
         android:layout_width="52dp"
         android:layout_height="44dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
-        android:text="+970"
+        android:text="00970"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/editTextPhoneNumberAdmin"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
