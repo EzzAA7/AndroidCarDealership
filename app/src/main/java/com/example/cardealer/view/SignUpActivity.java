@@ -99,7 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
 
-                        // set area code to 00970
+                        // set area code to 00962
                         tvAreaCode.setText("00962");
 
                         break;
@@ -112,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
 
-                        // set area code to 00970
+                        // set area code to 00963
                         tvAreaCode.setText("00963");
                         break;
                     case "Lebanon":
@@ -124,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity {
                         // Apply the adapter to the spinner
                         cities.setAdapter(adapterCities);
 
-                        // set area code to 00970
+                        // set area code to 00961
                         tvAreaCode.setText("00961");
 
                         break;
