@@ -105,33 +105,65 @@ public class AddAdminFragment extends Fragment {
                 // if not empty then check for validation
                 else{
 
-                    // if passwords match then we can send register action to db
-                    if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+                    // calculate validation characters
+                    String pw = etPassword.getText().toString();
+                    int pwNumOfChars = pw.length();
+                    int digitCount = 0;
+                    int letterCount = 0;
+                    int scCount = 0;
 
-                        String password = etPassword.getText().toString();
-                        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
-
-                        boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
-                                etLastName.getText().toString(), etEmail.getText().toString(),
-                                pw_hash, gender.getSelectedItem().toString(),
-                                countries.getSelectedItem().toString(),
-                                cities.getSelectedItem().toString(),
-                                etPhoneNumber.getText().toString(),
-                                "admin");
-
-                        // check if db registeration action succeeded
-                        if(var){
-                            Toast.makeText(getActivity(), "User registered successfully!", Toast.LENGTH_SHORT).show();
+                    for( int i = 0; i < pwNumOfChars; i++ )
+                    {
+                        if (Character.isDigit(pw.charAt(i))) {
+                            digitCount++;
                         }
-                        else {
-                            Toast.makeText(getActivity(), "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
 
+                        if (Character.isAlphabetic(pw.charAt(i))) {
+                            letterCount++;
+                        }
+
+                        if (!Character.isDigit(pw.charAt(i)) && !Character.isAlphabetic(pw.charAt(i))
+                                && !Character.isWhitespace(pw.charAt(i))) {
+                            scCount++;
                         }
                     }
 
-                    // if passwords dont match then alert the user
-                    else{
-                        showAlertDialogNotEqual(linearLayout);
+                    if(etFirstName.getText().toString().length() < 3 ||
+                            etLastName.getText().toString().length() < 3 || pwNumOfChars < 5 ||
+                            digitCount < 1 || letterCount < 1 || scCount < 1 ){
+
+                        showAlertDialogWrongValid(linearLayout);
+                    }
+
+                    else {
+                        // if passwords match then we can send register action to db
+                        if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+
+                            String password = etPassword.getText().toString();
+                            String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                            boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
+                                    etLastName.getText().toString(), etEmail.getText().toString(),
+                                    pw_hash, gender.getSelectedItem().toString(),
+                                    countries.getSelectedItem().toString(),
+                                    cities.getSelectedItem().toString(),
+                                    etPhoneNumber.getText().toString(),
+                                    "admin");
+
+                            // check if db registeration action succeeded
+                            if(var){
+                                Toast.makeText(getActivity(), "User registered successfully!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        // if passwords dont match then alert the user
+                        else{
+                            showAlertDialogNotEqual(linearLayout);
+                        }
                     }
 
                 }
@@ -167,6 +199,20 @@ public class AddAdminFragment extends Fragment {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Unsuccessful Action");
         alert.setMessage("Some fields are empty");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                Toast.makeText(getActivity(), "Try Again! :)", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+    }
+
+    // the alert func for wrong validation in a field
+    public void showAlertDialogWrongValid(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Unsuccessful Action");
+        alert.setMessage("Some fields are not valid");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
