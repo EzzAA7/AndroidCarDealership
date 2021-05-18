@@ -171,8 +171,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("EMAIL", email);
         contentValues.put("DATETIME", dateTime);
 
-        //TODO: add check if email doesn't exist already
-
         // once contentValues are setup we can insert the user to the database
         long result = sqLiteDatabase.insert("RESERVATION", null, contentValues);
 
@@ -217,8 +215,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("NAME", name);
         contentValues.put("PHONE", phone);
         contentValues.put("EMAIL", email);
-
-        //TODO: add check if email doesn't exist already
 
         // once contentValues are setup we can insert the user to the database
         long result = sqLiteDatabase.insert("FAVOURITE", null, contentValues);
