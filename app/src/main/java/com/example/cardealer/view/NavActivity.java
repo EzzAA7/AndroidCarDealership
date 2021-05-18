@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.model.User;
 import com.example.cardealer.service.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,15 +37,21 @@ public class NavActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+        // setup email value in menu header to user's email
         sharedPrefManager = SharedPrefManager.getInstance(this);
         View headerView = navigationView.getHeaderView(0);
         TextView navEmail = (TextView) headerView.findViewById(R.id.tvProfileEmail);
         String email = sharedPrefManager.readString("Session","noValue");
         navEmail.setText(email);
 
-        // TODO: ADD GET NAME FROM DB
-        //        TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
-        //        navName.setText(name);
+        DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
+        User currentUser = dataBaseHelper.getUser(email);
+
+        // setup name value in menu header to current user's name
+        TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
+        navName.setText(currentUser.getfName() + " " + currentUser.getlName());
+
+
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -55,7 +62,6 @@ public class NavActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
 
-        DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
         if(dataBaseHelper.isUserAdmin(email)){
             // TODO: fix to admin home after creating it
             navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
