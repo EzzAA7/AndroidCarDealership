@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +24,18 @@ import com.example.cardealer.view.SignUpActivity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 
-public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
+public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implements Filterable {
 
     ArrayList<Car> cars;
+    ArrayList<Car> carsAll;
     Context context;
     SharedPrefManager sharedPrefManager;
 
     public CarAdapter(ArrayList<Car> cars, Context context) {
         this.cars = cars;
+        this.carsAll = new ArrayList<>(cars);
         this.context = context;
     }
 
@@ -131,6 +136,43 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH>{
     public int getItemCount() {
         return cars.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            ArrayList<Car> filteredCars = new ArrayList<>();
+
+            if (constraint.toString().isEmpty()){
+                filteredCars.addAll(carsAll);
+            }
+            else{
+                for (Car car: carsAll){
+                    if ((car.getMake().toLowerCase().contains(constraint.toString().toLowerCase()))
+                            || (car.getModel().toLowerCase().contains(constraint.toString().toLowerCase())) ||
+                            (car.getYear().toLowerCase().contains(constraint.toString().toLowerCase()))){
+                        filteredCars.add(car);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredCars;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            cars.clear();
+            cars.addAll((Collection<? extends Car>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     class CarVH extends RecyclerView.ViewHolder{
 

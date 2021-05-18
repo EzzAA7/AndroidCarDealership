@@ -84,6 +84,7 @@ public class CarMenuFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                carAdapter.getFilter().filter(newText);
                 return false;
             }
         });
