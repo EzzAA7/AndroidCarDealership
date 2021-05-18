@@ -1,5 +1,6 @@
 package com.example.cardealer.ui.carMenu;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.database.Cursor;
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -33,6 +37,7 @@ public class CarMenuFragment extends Fragment {
     ArrayList<Car> cars;
 
     public static CarMenuFragment newInstance() {
+
         return new CarMenuFragment();
     }
 
@@ -55,30 +60,33 @@ public class CarMenuFragment extends Fragment {
         llm.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-//        Cursor allCarsCursor = dataBaseHelper.getAllCars();
-//        while (allCarsCursor.moveToNext()){
-//            TextView textView =new TextView(getActivity());
-//            textView.setText(
-//                    "Year= "+allCarsCursor.getString(0)
-//                            +"\nMake= "+allCarsCursor.getString(1)
-//                            +"\nModel= "+allCarsCursor.getString(2)
-//                            +"\nDistance= "+allCarsCursor.getString(3)
-//                            +"\nPrice= "+allCarsCursor.getString(4)
-//                            +"\nAccidents= "+allCarsCursor.getString(5)
-//                            +"\nOffers= "+allCarsCursor.getString(6)
-//                            +"\n\n"
-//            );
-//            linearLayout.addView(textView);
-//        }
-
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         mViewModel = new ViewModelProvider(this).get(CarMenuViewModel.class);
         //
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.car_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }
