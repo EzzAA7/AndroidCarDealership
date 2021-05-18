@@ -39,16 +39,16 @@ tools:context=".ui.profile.ProfileFragment">
 
     <EditText
         android:id="@+id/editText_phoneCustEdit"
-        android:layout_width="331dp"
-        android:layout_height="45dp"
+        android:layout_width="274dp"
+        android:layout_height="39dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLastNameCustEdit" />
 
@@ -64,13 +64,13 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordCusEdit" />
 
     <EditText
-        android:id="@+id/editTextConfirmPasswordCusEdit"
+        android:id="@+id/editTextPasswordCustEdit"
         android:layout_width="324dp"
         android:layout_height="46dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Confirm Passowrd"
+        android:hint="Passowrd"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,13 +78,13 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
 
     <EditText
-        android:id="@+id/editTextPasswordCustEdit"
+        android:id="@+id/editTextConfirmPasswordCusEdit"
         android:layout_width="324dp"
         android:layout_height="46dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
-        android:hint="Passowrd"
+        android:hint="Confirm Passowrd"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -115,5 +115,15 @@ tools:context=".ui.profile.ProfileFragment">
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAreaCodeProfile"
+        android:layout_width="52dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPasswordCustEdit"
+        app:layout_constraintEnd_toStartOf="@+id/editText_phoneCustEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
