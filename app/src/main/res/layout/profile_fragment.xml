@@ -8,14 +8,14 @@ android:textAlignment="center"
 tools:context=".ui.profile.ProfileFragment">
 
     <EditText
-        android:id="@+id/editTextFirstNameCustEdit"
+        android:id="@+id/editTextLastNameCustEdit"
         android:layout_width="331dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="268dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="First Name"
+        android:hint="Last Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,39 +23,26 @@ tools:context=".ui.profile.ProfileFragment">
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextConfirmPasswordCusEdit"
-        android:layout_width="324dp"
-        android:layout_height="46dp"
+        android:id="@+id/editTextFirstNameCustEdit"
+        android:layout_width="331dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="Confirm Passowrd"
-        android:inputType="textPassword"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextLastNameCustEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
-
-    <EditText
-        android:id="@+id/editTextPasswordCustEdit"
-        android:layout_width="324dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Passowrd"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editText_phoneCustEdit"
         android:layout_width="331dp"
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Phone Number"
@@ -69,27 +56,54 @@ tools:context=".ui.profile.ProfileFragment">
         android:id="@+id/btnCustEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:text="Edit Info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPasswordCusEdit" />
 
     <EditText
-        android:id="@+id/editTextLastNameCustEdit"
-        android:layout_width="331dp"
-        android:layout_height="45dp"
+        android:id="@+id/editTextConfirmPasswordCusEdit"
+        android:layout_width="324dp"
+        android:layout_height="46dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
+        android:hint="Confirm Passowrd"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
+
+    <EditText
+        android:id="@+id/editTextPasswordCustEdit"
+        android:layout_width="324dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Passowrd"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_phoneCustEdit" />
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="75dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="168dp"
+        android:contentDescription="@string/nav_header_desc"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstNameCustEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.531"
+        android:scaleType="centerInside"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/textView5"

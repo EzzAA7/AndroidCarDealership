@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -54,6 +55,8 @@ public class ProfileFragment extends Fragment {
         etConfirmPassword = (EditText)view.findViewById(R.id.editTextConfirmPasswordCusEdit);
         etPhoneNumber = (EditText)view.findViewById(R.id.editText_phoneCustEdit);
         editCustomerButton = (Button) view.findViewById(R.id.btnCustEdit);
+        ImageView img = (ImageView) view.findViewById(R.id.imageViewProfile);
+        img.setImageResource(R.drawable.defualt_profile);
 
         // setup db
         DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
