@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class NavActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    TextView tvProfileName, tvProfileEmail;
     SharedPrefManager sharedPrefManager;
 
     @Override
@@ -50,7 +49,9 @@ public class NavActivity extends AppCompatActivity {
         String email = sharedPrefManager.readString("Session","noValue");
         navEmail.setText(email);
 
+        // setup db
         DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
+        // get current user
         User currentUser = dataBaseHelper.getUser(email);
 
         // setup name value in menu header to current user's name
@@ -60,32 +61,27 @@ public class NavActivity extends AppCompatActivity {
         // setup picture value in menu header to current user's name
         ImageView img = (ImageView) headerView.findViewById(R.id.imageViewProfileMenu);
 
-        try {
-            ArrayList<Image> images = dataBaseHelper.getAllImages();
-            if(images != null) {
-
-                Bitmap myImage = null;
-
-                for (Image image : images) {
-                    if (image.getTitle().equals(email)) {
-                        myImage = image.getImage();
-                    }
-                }
-
-                if (myImage != null) {
-                    img.setImageBitmap(myImage);
-                } else {
-                    img.setImageResource(R.drawable.default_profile);
-                }
+        // setup a drawer listener for picture change in profileFragment
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
             }
-            else {
-                img.setImageResource(R.drawable.default_profile);
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
             }
-        }
-        catch (Exception e){
-//            Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                profilePictureHandler(dataBaseHelper, email, img);
+            }
+        });
+
+//        profilePictureHandler(dataBaseHelper, email, img);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -98,7 +94,9 @@ public class NavActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
 
+        // setup which menu fragments should appear
         if(dataBaseHelper.isUserAdmin(email)){
+            // in case of admin only (home_admin, add_admin, deleteCustomers, viewReservations) should appear
             navController.navigate(R.id.nav_home_admin);
             navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_car_menu).setVisible(false);
@@ -109,6 +107,7 @@ public class NavActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
         }
         else{
+            // in case of user these (home_admin, add_admin, deleteCustomers, viewReservations) shouldn't appear
             navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_add_admin).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_delete_customers).setVisible(false);
@@ -117,6 +116,42 @@ public class NavActivity extends AppCompatActivity {
         }
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    // handler to setup picture in drawer header in case of changes and in intial drawer swipe
+    private void profilePictureHandler(DataBaseHelper dataBaseHelper, String email, ImageView img) {
+        try {
+            // get all images
+            ArrayList<Image> images = dataBaseHelper.getAllImages();
+            // check that we have any images
+            if (images != null) {
+
+                Bitmap myImage = null;
+                // find a saved picture for our user using their session
+                for (Image image : images) {
+                    if (image.getTitle().equals(email)) {
+                        myImage = image.getImage();
+                    }
+                }
+
+                if (myImage != null) {
+                    // in case we found a picture for our user then set it
+                    img.setImageBitmap(myImage);
+                }
+                else {
+                    // in case non of the pictures in db belong to our current user
+                    // then display a generic picture
+                    img.setImageResource(R.drawable.default_profile);
+                }
+            }
+            // if we have no images in db then display a generic profile picture
+            else {
+                img.setImageResource(R.drawable.default_profile);
+            }
+        } catch (Exception e) {
+            Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+        }
     }
 
     @Override

@@ -108,8 +108,8 @@ public class ProfileFragment extends Fragment {
             }
         }
         catch (Exception e){
-//            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
         }
 
         // configure initial values for profile to be current user's values
@@ -277,8 +277,8 @@ public class ProfileFragment extends Fragment {
             }
         }
         catch (Exception e){
-//            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
         }
 
     }
