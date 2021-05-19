@@ -51,57 +51,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setButtonText(String text) {
+
         button.setText(text);
     }
 
     public void fillCars(ArrayList<Car> cars) {
-//        LinearLayout linearLayout = (LinearLayout)
-//                findViewById(R.id.layout);
-//        linearLayout.removeAllViews();
         if(cars.size() < 1){
             showAlertDialog(linearLayout);
         }
         else{
 //            deleteDatabase("PROJ");
-//            DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ",null,1);
-//            for (int i = 0; i < cars.size(); i++) {
-////                System.out.println(cars.get(i));
-////                dataBaseHelper.insertCar(cars.get(i));
-////                Cursor allCarsCursor = dataBaseHelper.getAllCars();
-////                System.out.println(allCarsCursor.getCount());
-//                TextView textView = new TextView(this);
-//                textView.setText(cars.get(i).toString());
-//                linearLayout.addView(textView);
-//            }
             startActivity(intent);
             finish();
         }
 
     }
-
-//    protected void onResume() {
-//        super.onResume();
-//        DataBaseHelper dataBaseHelper =new DataBaseHelper(MainActivity.this,"PROJ", null,1);
-//        LinearLayout linearLayout = (LinearLayout)
-//                findViewById(R.id.layout);
-//        linearLayout.removeAllViews();
-//        Cursor allCarsCursor = dataBaseHelper.getAllCars();
-//        linearLayout .removeAllViews();
-//        while (allCarsCursor.moveToNext()){
-//            TextView textView =new TextView(MainActivity.this);
-//
-//            textView.setText(
-//                    "Year= "+allCarsCursor.getString(0)
-//                            +"\nMake= "+allCarsCursor.getString(1)
-//                            +"\nDistance= "+allCarsCursor.getString(2)
-//                            +"\nPrice= "+allCarsCursor.getString(3)
-//                            +"\nAccidents= "+allCarsCursor.getString(4)
-//                            +"\nOffers= "+allCarsCursor.getString(5)
-//                            +"\n\n"
-//            );
-//            linearLayout.addView(textView);
-//        }
-//    }
 
     public void setProgress(boolean progress) {
         ProgressBar progressBar = (ProgressBar)
