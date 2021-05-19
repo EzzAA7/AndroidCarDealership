@@ -59,6 +59,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
         holder.tvModelInfo.setText((c.getMake() + " " + c.getModel() + " " + c.getYear()));
         holder.tvDistance.setText(c.getDistance());
         holder.tvPrice.setText(c.getPrice() + " Shekel" );
+        String acc = c.getAccidents() ? "✅" : "❌";
+        holder.tvAccidents.setText("Had Any Previous Accidents:         " + acc );
 
         DataBaseHelper dataBaseHelper =new DataBaseHelper(context,"PROJ", null,1);
 
@@ -211,7 +213,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
 
     class CarVH extends RecyclerView.ViewHolder{
 
-        TextView tvModelInfo, tvDistance, tvPrice;
+        TextView tvModelInfo, tvDistance, tvPrice, tvAccidents;
         Button buttonReserve, buttonFav;
         LinearLayout clickable;
         LinearLayout container;
@@ -225,6 +227,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
             tvModelInfo = itemView.findViewById(R.id.tvModelInfo);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvAccidents = itemView.findViewById(R.id.tvAccidents);
+
             buttonReserve = itemView.findViewById(R.id.btnReserve);
             buttonFav = itemView.findViewById(R.id.btnFav);
             clickable = itemView.findViewById(R.id.layoutClickable);
