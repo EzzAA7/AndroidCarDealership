@@ -9,16 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardealer.R;
 import com.example.cardealer.model.Car;
 import com.example.cardealer.model.User;
 import com.example.cardealer.service.SharedPrefManager;
+import com.example.cardealer.ui.carMenu.CarDetailsFragment;
 import com.example.cardealer.view.SignUpActivity;
 
 import java.time.LocalDateTime;
@@ -130,6 +135,22 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
                     Toast.makeText(context, "Favourite Failed, try Again!", Toast.LENGTH_SHORT).show();
                 }            }
         });
+
+//        holder.clickable.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CarDetailsFragment fragment = new CarDetailsFragment();
+//                try {
+//                    holder.Fragment(fragment);
+//                    holder.tvDistance.setText(c.getDistance());
+//                    holder.tvPrice.setText(c.getPrice() + " Shekel" );
+//                }catch (Exception e){
+////            Toast.makeText(context, "BindViewHolder"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
     }
 
     @Override
@@ -178,15 +199,30 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
 
         TextView tvModelInfo, tvDistance, tvPrice;
         Button buttonReserve, buttonFav;
+//        LinearLayout clickable;
+//        LinearLayout container;
 
         public CarVH(@NonNull View itemView) {
             super(itemView);
+//            container = itemView.findViewById(R.id.layoutToBeChanged);
 
             tvModelInfo = itemView.findViewById(R.id.tvModelInfo);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             buttonReserve = itemView.findViewById(R.id.btnReserve);
             buttonFav = itemView.findViewById(R.id.btnFav);
+//            clickable = itemView.findViewById(R.id.layoutClickable);
         }
+
+//        private void Fragment(final Fragment fragment) {
+//            FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager()
+//                    .beginTransaction();
+//            try {
+//                transaction.replace(R.id.layoutToBeChanged, fragment)
+//                        .commit();
+//            } catch (Exception e) {
+//                Toast.makeText(context, "ViewHolder " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 }
