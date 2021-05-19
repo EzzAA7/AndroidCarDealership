@@ -151,6 +151,20 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
 //            }
 //        });
 
+        holder.clickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.isInvisible){
+                    holder.container.setVisibility(View.VISIBLE);
+                    holder.isInvisible  = false;
+                }
+                else{
+                    holder.container.setVisibility(View.GONE);
+                    holder.isInvisible = true;
+                }
+            }
+        });
+
     }
 
     @Override
@@ -199,19 +213,21 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarVH> implement
 
         TextView tvModelInfo, tvDistance, tvPrice;
         Button buttonReserve, buttonFav;
-//        LinearLayout clickable;
-//        LinearLayout container;
+        LinearLayout clickable;
+        LinearLayout container;
+        Boolean isInvisible;
 
         public CarVH(@NonNull View itemView) {
             super(itemView);
-//            container = itemView.findViewById(R.id.layoutToBeChanged);
+            container = itemView.findViewById(R.id.layoutToBeChanged);
+            isInvisible = true;
 
             tvModelInfo = itemView.findViewById(R.id.tvModelInfo);
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             buttonReserve = itemView.findViewById(R.id.btnReserve);
             buttonFav = itemView.findViewById(R.id.btnFav);
-//            clickable = itemView.findViewById(R.id.layoutClickable);
+            clickable = itemView.findViewById(R.id.layoutClickable);
         }
 
 //        private void Fragment(final Fragment fragment) {
