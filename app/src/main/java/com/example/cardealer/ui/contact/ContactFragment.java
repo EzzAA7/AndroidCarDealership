@@ -73,7 +73,7 @@ public class ContactFragment extends Fragment {
             @Override
             public void onClick(View view) { Intent mapsIntent =new Intent();
                 mapsIntent.setAction(Intent.ACTION_VIEW);
-                mapsIntent.setData(Uri.parse("geo:35.076,31.8777"));
+                mapsIntent.setData(Uri.parse("geo:31.686153,35.143164"));
                 startActivity(mapsIntent);
             }
         });

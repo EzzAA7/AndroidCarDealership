@@ -8,5 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E9FA917F</color>
-    <color name="yellow">#99F3E463</color>
+    <color name="indian">#CD5C5C</color>
+    <color name="crimson">#DC143C</color>
+    <color name="orangered">#FF4500</color>
+
 </resources>
