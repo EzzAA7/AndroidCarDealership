@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
                 img.setImageBitmap(myImage);
             }
             else {
-                img.setImageResource(R.drawable.defualt_profile);
+                img.setImageResource(R.drawable.default_profile);
             }
         }
         catch (Exception e){

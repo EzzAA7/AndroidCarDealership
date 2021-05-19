@@ -74,14 +74,14 @@ public class NavActivity extends AppCompatActivity {
                 img.setImageBitmap(myImage);
             }
             else {
-                img.setImageResource(R.drawable.defualt_profile);
+                img.setImageResource(R.drawable.default_profile);
             }
         }
         catch (Exception e){
             Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -93,7 +93,7 @@ public class NavActivity extends AppCompatActivity {
                 .build();
 
         if(dataBaseHelper.isUserAdmin(email)){
-            // TODO: fix to admin home after creating it
+            navController.navigate(R.id.nav_home_admin);
             navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_car_menu).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_your_reservations).setVisible(false);
@@ -116,7 +116,6 @@ public class NavActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_view_reservations).setVisible(false);
 
         }
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
