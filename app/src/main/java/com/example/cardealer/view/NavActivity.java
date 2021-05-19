@@ -62,23 +62,29 @@ public class NavActivity extends AppCompatActivity {
 
         try {
             ArrayList<Image> images = dataBaseHelper.getAllImages();
-            Bitmap myImage = null;
+            if(images != null) {
 
-            for(Image image: images){
-                if (image.getTitle().equals(email)){
-                    myImage = image.getImage();
+                Bitmap myImage = null;
+
+                for (Image image : images) {
+                    if (image.getTitle().equals(email)) {
+                        myImage = image.getImage();
+                    }
                 }
-            }
 
-            if(myImage != null){
-                img.setImageBitmap(myImage);
+                if (myImage != null) {
+                    img.setImageBitmap(myImage);
+                } else {
+                    img.setImageResource(R.drawable.default_profile);
+                }
             }
             else {
                 img.setImageResource(R.drawable.default_profile);
             }
         }
         catch (Exception e){
-            Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

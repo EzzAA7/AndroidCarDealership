@@ -85,38 +85,42 @@ public class ProfileFragment extends Fragment {
         // get current user from db using userSession
         User currentUser = dataBaseHelper.getUser(email);
 
-        // TODO: let user update instead of create in case of new press (copy this down to onClick)
         try {
             ArrayList<Image> images = dataBaseHelper.getAllImages();
             Bitmap myImage = null;
 
-            for(Image image: images){
-                if (image.getTitle().equals(email)){
-                    myImage = image.getImage();
-                }
-            }
+            if(images != null) {
 
-            if(myImage != null){
-                img.setImageBitmap(myImage);
+                for (Image image : images) {
+                    if (image.getTitle().equals(email)) {
+                        myImage = image.getImage();
+                    }
+                }
+
+                if (myImage != null) {
+                    img.setImageBitmap(myImage);
+                } else {
+                    img.setImageResource(R.drawable.default_profile);
+                }
             }
             else {
                 img.setImageResource(R.drawable.default_profile);
             }
         }
         catch (Exception e){
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
 
         // configure initial values for profile to be current user's values
         etFirstName.setText(currentUser.getfName());
         etLastName.setText(currentUser.getlName());
-        etPassword.setText(currentUser.getPassword());
-        etConfirmPassword.setText(currentUser.getPassword());
 
         String phone = currentUser.getPhoneNumber();
         tvAreaCodeProfile.setText(phone.substring(0,5));
         etPhoneNumber.setText(phone.substring(5));
 
+        // change picture implementation loads choose from gallery using intent
         changePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,12 +220,14 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // check if we received from gallery
         if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data.getData()!= null && data!=null) {
             try {
+                //save and set photo in the imageView
                 Uri imageFilePath = data.getData();
                 Bitmap imageToStore = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageFilePath);
                 selectedImageView.setImageBitmap(imageToStore);
-
+                // to store in db
                 storeImage(imageToStore);
 
             } catch (IOException exception) {
@@ -237,15 +243,32 @@ public class ProfileFragment extends Fragment {
             if(selectedImageView.getDrawable()!= null && imageToStore != null){
                 DataBaseHelper dataBaseHelper =new DataBaseHelper(getActivity(),"PROJ", null,1);
 
+                // user session is the image title since its unique
                 sharedPrefManager = SharedPrefManager.getInstance(getActivity());
                 String email = sharedPrefManager.readString("Session","noValue");
 
-                boolean result = dataBaseHelper.storeImage(new Image(email, imageToStore));
-                if(result){
-                    Toast.makeText(getActivity(), "added to db!", Toast.LENGTH_SHORT).show();
+                // first check if user has a picture in db
+                if(dataBaseHelper.getUserPicture(email)){
+                    // then user already has a picture so we update it
+
+                    // store picture in db as a bitmap (later to blob)
+                    boolean result = dataBaseHelper.updateImage(new Image(email, imageToStore));
+                    if (result) {
+                        Toast.makeText(getActivity(), "Updated user picture", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed updating pic!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getActivity(), "failed adding pic!", Toast.LENGTH_SHORT).show();
+                else {
+                    // the user doesnt have a previous picture in db so create and store new oen
+
+                    // store picture in db as a bitmap (later to blob)
+                    boolean result = dataBaseHelper.storeImage(new Image(email, imageToStore));
+                    if (result) {
+                        Toast.makeText(getActivity(), "Added new picture", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Failed adding new pic!", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -254,8 +277,8 @@ public class ProfileFragment extends Fragment {
             }
         }
         catch (Exception e){
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-
+//            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
 
     }
@@ -264,7 +287,6 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        //
     }
 
     // the alert func for not equal passwords
