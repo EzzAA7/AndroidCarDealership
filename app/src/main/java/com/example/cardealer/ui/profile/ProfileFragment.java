@@ -42,14 +42,13 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel mViewModel;
     EditText etFirstName, etLastName, etPassword, etConfirmPassword, etPhoneNumber;
-    TextView tvAreaCodeProfile;
+    TextView tvAreaCodeProfile, tvFullName, tvEmail, tvPhoneNumber;
     Button editCustomerButton, changePictureButton;
     LinearLayout linearLayout;
     SharedPrefManager sharedPrefManager;
     ArrayList<User> users;
 
     private static final int GALLERY_REQUEST_CODE = 100;
-    private static final int CAMERA_REQUEST_CODE = 200;
     private ImageView selectedImageView;
     private EditText titleEditText;
 
@@ -66,11 +65,17 @@ public class ProfileFragment extends Fragment {
 
         // activity data
         linearLayout = (LinearLayout) view.findViewById(R.id.layout);
+
+        tvFullName = (TextView) view.findViewById(R.id.tvProfileNameView);
+        tvEmail = (TextView) view.findViewById(R.id.tvProfileEmailView);
+        tvPhoneNumber = (TextView) view.findViewById(R.id.tvProfilePhoneView);
+
         etFirstName = (EditText)view.findViewById(R.id.editTextFirstNameCustEdit);
         etLastName = (EditText)view.findViewById(R.id.editTextLastNameCustEdit);
         etPassword = (EditText)view.findViewById(R.id.editTextPasswordCustEdit);
         etConfirmPassword = (EditText)view.findViewById(R.id.editTextConfirmPasswordCusEdit);
         etPhoneNumber = (EditText)view.findViewById(R.id.editText_phoneCustEdit);
+
         tvAreaCodeProfile = (TextView) view.findViewById(R.id.tvAreaCodeProfile);
         editCustomerButton = (Button) view.findViewById(R.id.btnCustEdit);
         ImageView img = (ImageView) view.findViewById(R.id.imageViewProfile);
@@ -119,6 +124,10 @@ public class ProfileFragment extends Fragment {
         String phone = currentUser.getPhoneNumber();
         tvAreaCodeProfile.setText(phone.substring(0,5));
         etPhoneNumber.setText(phone.substring(5));
+
+        tvFullName.setText(currentUser.getfName() + " " + currentUser.getlName());
+        tvEmail.setText(currentUser.getEmail());
+        tvPhoneNumber.setText(currentUser.getPhoneNumber());
 
         // change picture implementation loads choose from gallery using intent
         changePictureButton.setOnClickListener(new View.OnClickListener() {
