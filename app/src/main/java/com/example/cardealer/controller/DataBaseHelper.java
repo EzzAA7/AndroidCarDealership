@@ -40,8 +40,6 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
         contentValues.put("PHONENUMBER", phoneNumber);
         contentValues.put("ROLE", role);
 
-        //TODO: add check if email doesn't exist already
-
         // once contentValues are setup we can insert the user to the database
         long result = sqLiteDatabase.insert("USER", null, contentValues);
 

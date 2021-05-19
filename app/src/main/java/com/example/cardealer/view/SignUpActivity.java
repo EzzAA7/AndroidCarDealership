@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cardealer.R;
 import com.example.cardealer.controller.DataBaseHelper;
+import com.example.cardealer.model.User;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -192,26 +193,38 @@ public class SignUpActivity extends AppCompatActivity {
                         // if passwords match then we can send register action to db
                         if(etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
 
-                            String password = etPassword.getText().toString();
-                            String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
-                            String phone = etPhoneNumber.getText().toString();
+                            // we need to check if user exists before registering them
 
-                            boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
-                                    etLastName.getText().toString(), etEmail.getText().toString(),
-                                    pw_hash, gender.getSelectedItem().toString(),
-                                    countries.getSelectedItem().toString(),
-                                    cities.getSelectedItem().toString(),
-                                    (tvAreaCode.getText().toString() + phone),
-                                    "customer"
-                            );
+                            User currentUser = dataBaseHelper.getUser(etEmail.getText().toString());
 
-                            // check if db registeration action succeeded
-                            if(var){
-                                Toast.makeText(SignUpActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                            // there already exists such a user
+                            if(currentUser != null){
+                                showAlertDialogUserExists(linearLayout);
                             }
-                            else {
-                                Toast.makeText(SignUpActivity.this, "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
 
+                            // no such user => proceed to register them
+                            else {
+
+                                String password = etPassword.getText().toString();
+                                String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+                                String phone = etPhoneNumber.getText().toString();
+
+                                boolean var = dataBaseHelper.registerUser(etFirstName.getText().toString(),
+                                        etLastName.getText().toString(), etEmail.getText().toString(),
+                                        pw_hash, gender.getSelectedItem().toString(),
+                                        countries.getSelectedItem().toString(),
+                                        cities.getSelectedItem().toString(),
+                                        (tvAreaCode.getText().toString() + phone),
+                                        "customer"
+                                );
+
+                                // check if db registeration action succeeded
+                                if (var) {
+                                    Toast.makeText(SignUpActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, "Registration Failed, try Again!", Toast.LENGTH_SHORT).show();
+
+                                }
                             }
                         }
 
@@ -270,6 +283,20 @@ public class SignUpActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Unsuccessful Action");
         alert.setMessage("Some fields are not valid");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                Toast.makeText(SignUpActivity.this, "Try Again! :)", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.create().show();
+    }
+
+    // the alert func for that user exists
+    public void showAlertDialogUserExists(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Unsuccessful Action");
+        alert.setMessage("A user with this email already exists");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
