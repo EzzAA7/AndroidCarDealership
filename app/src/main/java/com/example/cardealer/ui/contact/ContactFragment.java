@@ -58,12 +58,13 @@ public class ContactFragment extends Fragment {
         gmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { Intent gmailIntent =new Intent();
+                String recipient = "CarDealer@cars.com";
                 gmailIntent.setAction(Intent.ACTION_SENDTO);
                 gmailIntent.setType("message/rfc822");
                 gmailIntent.setData(Uri.parse("mailto:"));
-                gmailIntent.putExtra(Intent.EXTRA_EMAIL,"CarDealer@cars.com");
+                gmailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
                 gmailIntent.putExtra(Intent.EXTRA_SUBJECT,"Contacting your car dealership");
-                gmailIntent.putExtra(Intent.EXTRA_TEXT,"Content of the message");
+                gmailIntent.putExtra(Intent.EXTRA_TEXT,"I have an enquiry");
                 startActivity(gmailIntent);
             }
         });
@@ -72,7 +73,7 @@ public class ContactFragment extends Fragment {
             @Override
             public void onClick(View view) { Intent mapsIntent =new Intent();
                 mapsIntent.setAction(Intent.ACTION_VIEW);
-                mapsIntent.setData(Uri.parse("geo:30.076,31.8777"));
+                mapsIntent.setData(Uri.parse("geo:35.076,31.8777"));
                 startActivity(mapsIntent);
             }
         });
