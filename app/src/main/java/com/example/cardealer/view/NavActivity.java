@@ -101,13 +101,6 @@ public class NavActivity extends AppCompatActivity {
             navigationView.getMenu().findItem(R.id.nav_special_offers).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_contact).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
-            // use this to navigate to home_admin as first destination but unfortunaley it removes menu button
-//            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);  // Hostfragment
-//            NavInflater inflater = navHostFragment.getNavController().getNavInflater();
-//            NavGraph graph = inflater.inflate(R.navigation.mobile_navigation);
-//            graph.setStartDestination(R.id.nav_home_admin);
-//            navController.setGraph(graph);
-
         }
         else{
             navigationView.getMenu().findItem(R.id.nav_home_admin).setVisible(false);
