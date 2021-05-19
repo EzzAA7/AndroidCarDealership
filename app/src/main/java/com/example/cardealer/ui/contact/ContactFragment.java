@@ -25,6 +25,7 @@ public class ContactFragment extends Fragment {
     private ContactViewModel mViewModel;
 
     public static ContactFragment newInstance() {
+
         return new ContactFragment();
     }
 
