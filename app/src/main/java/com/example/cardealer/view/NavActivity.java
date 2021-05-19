@@ -42,23 +42,17 @@ public class NavActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        // setup email value in menu header to user's email
-        sharedPrefManager = SharedPrefManager.getInstance(this);
-        View headerView = navigationView.getHeaderView(0);
-        TextView navEmail = (TextView) headerView.findViewById(R.id.tvProfileEmail);
-        String email = sharedPrefManager.readString("Session","noValue");
-        navEmail.setText(email);
-
         // setup db
         DataBaseHelper dataBaseHelper =new DataBaseHelper(NavActivity.this,"PROJ", null,1);
-        // get current user
-        User currentUser = dataBaseHelper.getUser(email);
 
-        // setup name value in menu header to current user's name
-        TextView navName = (TextView) headerView.findViewById(R.id.tvProfileName);
-        navName.setText(currentUser.getfName() + " " + currentUser.getlName());
+        // get session
+        sharedPrefManager = SharedPrefManager.getInstance(this);
+        String email = sharedPrefManager.readString("Session","noValue");
 
-        // setup picture value in menu header to current user's name
+        // get HeaderView
+        View headerView = navigationView.getHeaderView(0);
+
+        // get picture view in menu header
         ImageView img = (ImageView) headerView.findViewById(R.id.imageViewProfileMenu);
 
         // setup a drawer listener for picture change in profileFragment
@@ -77,6 +71,10 @@ public class NavActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerStateChanged(int newState) {
+
+                headerDataHandler(dataBaseHelper, email, headerView);
+
+                // handle change of profile picture
                 profilePictureHandler(dataBaseHelper, email, img);
             }
         });
@@ -152,6 +150,20 @@ public class NavActivity extends AppCompatActivity {
             Toast.makeText(NavActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //            e.printStackTrace();
         }
+    }
+
+    private void headerDataHandler(DataBaseHelper dataBaseHelper, String email, View header) {
+
+        // setup email value in menu header to user's email
+        TextView navEmail = (TextView) header.findViewById(R.id.tvProfileEmail);
+        navEmail.setText(email);
+
+        // get current user
+        User currentUser = dataBaseHelper.getUser(email);
+
+        // setup name value in menu header to current user's name
+        TextView navName = (TextView) header.findViewById(R.id.tvProfileName);
+        navName.setText(currentUser.getfName() + " " + currentUser.getlName());
     }
 
     @Override
