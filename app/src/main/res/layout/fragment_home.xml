@@ -7,28 +7,16 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:paddingHorizontal="10dp"
-        android:text="Palestine"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
         android:id="@+id/tvShopName"
-        android:layout_width="399dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
+        android:background="@drawable/background1"
+        android:fontFamily="@font/roboto"
         android:text="FAMILY AUTO Dealership"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,49 +25,69 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="355dp"
-        android:layout_height="182dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="331dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="centerInside"
         android:src="@drawable/car_dealer"
         app:layout_constraintBottom_toTopOf="@+id/tvShopName"
-        android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="371dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="2dp"
-        android:paddingHorizontal="10dp"
-        android:text="Street #11"
-        android:textSize="24sp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:background="@drawable/background2"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvShopName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvShopName">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:text="Jerusalem"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="371dp"
+            android:layout_height="41dp"
+            android:fontFamily="@font/roboto_light"
+            android:paddingHorizontal="40dp"
+            android:paddingTop="10dp"
+            android:text="Street #11"
+            android:textColor="#ED000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:paddingHorizontal="40dp"
+            android:text="Jerusalem"
+            android:textColor="#ED000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:paddingHorizontal="40dp"
+            android:text="Palestine"
+            android:textColor="#ED000000"
+            android:textSize="24sp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="373dp"
-        android:layout_height="265dp"
-        android:layout_marginStart="16dp"
-        android:paddingHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="286dp"
+        android:background="@drawable/background3"
+        android:fontFamily="@font/roboto_light"
+        android:paddingHorizontal="40dp"
         android:paddingVertical="10dp"
         android:text="Our lovely establishment was started in 1967, it was the life work of my my grandfather and my father. The dealership sells all different kinds of cars from sedans to SUVs to hatchbacks."
+        android:textColor="#C4000000"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

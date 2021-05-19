@@ -85,10 +85,12 @@
             <Button
                 android:id="@+id/btnReserve"
                 style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
-                android:layout_width="226dp"
+                android:layout_width="174dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@android:color/black"
                 android:text="Reserve"
+                android:textSize="16sp"
                 app:icon="@drawable/ic_reserve" />
 
             <Button
@@ -96,6 +98,10 @@
                 style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="Favourite"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:icon="@drawable/ic_your_favourites" />
 
         </LinearLayout>
