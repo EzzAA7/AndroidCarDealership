@@ -280,6 +280,34 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
 
     }
 
+    public boolean updateImage(Image image){
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+
+            Bitmap imageToStoreBitmap = image.getImage();
+
+            ByteArrayOutputStream objectByteArrayOutputStream = new ByteArrayOutputStream();
+            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, objectByteArrayOutputStream);
+            byte[] imageInByte = objectByteArrayOutputStream.toByteArray();
+
+            ContentValues values = new ContentValues();
+            values.put("TITLE", image.getTitle());
+            values.put("IMAGE", imageInByte);
+
+            long result = db.update("IMAGES", values, "TITLE" + "=?", new String[]{String.valueOf(image.getTitle())});
+
+            if(result == -1){
+                return false;
+            }
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public ArrayList<Image> getAllImages (){
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -308,6 +336,27 @@ public class DataBaseHelper extends android.database.sqlite.SQLiteOpenHelper {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // func to return current user
+    public boolean getUserPicture(String email) {
+        ArrayList<Image> images = getAllImages();
+
+        if(images != null) {
+            for (Image image : images) {
+                if (image.getTitle().equals(email)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //---deletes a particular image---
+    public boolean deleteImage(String email)
+    {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        return sqLiteDatabase.delete("IMAGES", "TITLE" + "=?", new String[]{String.valueOf(email)}) > 0;
     }
 
     //---------------------- DB OVERRIDDEN FUNCTIONS --------------------------
